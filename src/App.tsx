@@ -349,6 +349,10 @@ function App() {
 
   const newsletters = [
     {
+      month: 'August 2026',
+      link: 'https://heyzine.com/flip-book/22575ff45f.html'
+    },
+    {
       month: 'November 2025',
       link: 'https://heyzine.com/flip-book/d3dec30d8a.html'
     },
