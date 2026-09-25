@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
-import { Trophy, Users, Building2, MessageSquare, Menu, X, ChevronLeft, ChevronRight, Mail, Phone, MapPin, ExternalLink, Instagram, Linkedin, Facebook } from 'lucide-react';
+import { Trophy, Users, Building2, MessageSquare, Menu, X, ChevronLeft, ChevronRight, Mail, Phone, MapPin, ExternalLink, Instagram, Linkedin, Facebook, Youtube} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -49,8 +49,10 @@ function App() {
   const [blogError, setBlogError] = useState<string | null>(null);
   const [page, setPage] = useState<'home' | 'blog'>('home');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [selectedBlog, setSelectedBlog] = useState<{ title: string; file: string; author: string; date: string; } | null>(null);
-
+  const [selectedBlog, setSelectedBlog] = useState<{title: string; file: string; author: string; date: string;} | null>(null);
+  const prevRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
+  
 
   const openBlogPage = (blog: { id: string }) => {
     setSelectedInsight(null);
@@ -58,9 +60,10 @@ function App() {
   };
 
   const closeBlogPage = () => {
-    window.location.hash = '';
+    setTimeout(() => {
+      window.location.hash = '';
+    }, 300);
   };
-
   const heroSlides = [
     {
       image: '/Resources/Home/TachoBgV2.jpg',
@@ -68,8 +71,16 @@ function App() {
       subtitle: 'Concept to Cockpit #1',
       desc: 'Custom RGB Based Tachometer Display for BZR4 - click to read',
       action: () => {
-        openBlogPage({ id: 'tachometer' });
-      }
+        document.getElementById("insights")?.scrollIntoView({ behavior: "smooth" });
+
+        setTimeout(() => {
+          const index = insights.findIndex(a => a.id === 'blogs');
+          setSelectedInsight(index);
+        }, 500);
+        setTimeout(() => {
+          openBlogPage({ id: 'tachometer' }); 
+        }, 1000);
+      } 
     },
     {
       image: `${import.meta.env.BASE_URL}Resources/Home/FB26_2_alt.jpg`,
@@ -77,8 +88,16 @@ function App() {
       subtitle: 'The One That Changed Us',
       desc: 'Our FB \'26 Story - click to read',
       action: () => {
-        openBlogPage({ id: 'fb26' });
-      }
+        document.getElementById("insights")?.scrollIntoView({ behavior: "smooth" });
+
+        setTimeout(() => {
+          const index = insights.findIndex(a => a.id === 'blogs');
+          setSelectedInsight(index);
+        }, 500);
+        setTimeout(() => {
+          openBlogPage({ id: 'fb26' }); 
+        }, 1000);
+      } 
     },
     {
       image: `${import.meta.env.BASE_URL}Resources/Home/fb26home.jpg`,
@@ -361,7 +380,7 @@ function App() {
       title: 'RGB Based Tachometer Display for BZR4',
       description: 'Concept to Cockpit #1: Developing a custom RGB based tachometer display for BZR4.',
       author: 'Prateek Moji',
-      date: '16th June, 2026',
+      date: '17th June, 2026',
       source: '/Resources/Blogs/Tachometer.md',
     },
     {
@@ -1089,18 +1108,19 @@ function App() {
                 <ChevronRight size={32} />
               </button>
               {heroSlides.map((slide, index) => (
-                <div
-                  key={index}
-                  onClick={slide.action}
-                  className={`absolute inset-0 cursor-pointer transition-opacity duration-1000 ${currentSlide === index ? 'opacity-100' : 'opacity-0'
-                    }`}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
-                  <img
-                    src={slide.image}
-                    alt={slide.title}
-                    className="w-full h-full object-cover sm:w-full sm:h-auto"
-                  />
+            <div
+              key={index}
+              onClick={slide.action}
+              className={`absolute inset-0 cursor-pointer transition-opacity duration-5000 ${
+                currentSlide === index ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
+              <img
+                src={slide.image}
+                alt={slide.title}
+                className="w-full h-full object-cover sm:w-full sm:h-auto"
+              />
 
                   <div className="absolute inset-0 z-20 flex items-center justify-center">
                     <div className="text-center px-4">
@@ -1332,44 +1352,109 @@ function App() {
 
       {/* Sponsors Section */}
       <section id="sponsors" className="py-20 bg-dark-secondary">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold mb-16 text-center text-gold">
-            Sponsors
-          </h2>
-          <Swiper
-            modules={[Navigation, Pagination, Autoplay]}
-            navigation
-            pagination={{ clickable: true }}
-            autoplay={{ delay: 3000 }}
-            loop
-            breakpoints={{
-              640: { slidesPerView: 2, spaceBetween: 20 },
-              768: { slidesPerView: 3, spaceBetween: 30 },
-              1024: { slidesPerView: 4, spaceBetween: 40 },
-            }}
-          >
-            {sponsors.map((sponsor, index) => (
-              <SwiperSlide key={index}>
-                <div
-                  className="clickable bg-black p-6 rounded-lg border border-neutral-800 hover:border-amber-500 group cursor-pointer max-w-80%"
-                  onClick={() => setSelectedSponsor(sponsor)}
-                >
-                  <div className="aspect-square mb-4 rounded-lg overflow-hidden flex items-center justify-center">
-                    <img
-                      src={sponsor.logo}
-                      alt={sponsor.name}
-                      className="w-auto h-auto max-w-full max-h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity"
-                    />
-                  </div>
-                  <h3 className="text-lg font-semibold text-white mb-1 text-center">{sponsor.name}</h3>
-                  <p className="text-neutral-400 text-sm text-center">{sponsor.category}</p>
-                </div>
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-4xl font-bold mb-16 text-center text-gold">
+              Sponsors
+            </h2>
 
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </section>
+            {/* Featured Video */}
+            <div className="mb-16 max-w-5xl mx-auto">
+              <div
+                className="relative w-full overflow-hidden rounded-2xl shadow-2xl"
+                style={{ paddingTop: "56.25%" }}
+              >
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full"
+                  src="https://www.youtube.com/embed/y9mb5MAnAHs"
+                  title="Bullz Racing"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+            <div className="relative max-w-6xl mx-auto">
+              {/* Left Button */}
+              <button
+                ref={prevRef}
+                className="
+                  absolute
+                  left-2 md:-left-12 lg:-left-16
+                  top-1/2
+                  -translate-y-1/2
+                  z-20
+                  p-3
+                  rounded-full
+                  bg-black/60
+                  text-gold
+                  hover:bg-black/80
+                  transition
+                "
+              >
+                <ChevronLeft size={32} />
+              </button>
+              <Swiper
+                modules={[Navigation, Pagination, Autoplay]}
+                navigation={{
+                    prevEl: prevRef.current,
+                    nextEl: nextRef.current,
+                }}
+                onBeforeInit={(swiper) => {
+                    // @ts-ignore
+                    swiper.params.navigation.prevEl = prevRef.current;
+                    // @ts-ignore
+                    swiper.params.navigation.nextEl = nextRef.current;
+                }}
+                pagination={{ clickable: true }}
+                autoplay={{ delay: 3000 }}
+                loop
+                breakpoints={{
+                  640: { slidesPerView: 2, spaceBetween: 20 },
+                  768: { slidesPerView: 3, spaceBetween: 30 },
+                  1024: { slidesPerView: 4, spaceBetween: 40 },
+                }}
+              >
+                {sponsors.map((sponsor, index) => (
+                  <SwiperSlide key={index}>
+                    <div 
+                      className="clickable bg-black p-6 rounded-lg border border-neutral-800 hover:border-amber-500 group cursor-pointer max-w-80%"
+                      onClick={() => setSelectedSponsor(sponsor)}
+                    >
+                      <div className="aspect-square mb-4 rounded-lg overflow-hidden flex items-center justify-center">
+                        <img 
+                          src={sponsor.logo}
+                          alt={sponsor.name}
+                          className="w-auto h-auto max-w-full max-h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity"
+                        />
+                      </div>
+                      <h3 className="text-lg font-semibold text-white mb-1 text-center">{sponsor.name}</h3>
+                      <p className="text-neutral-400 text-sm text-center">{sponsor.category}</p>
+                    </div>
+
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              {/* Right Button */}
+              <button
+                ref={nextRef}
+                className="
+                  absolute
+                  right-2 md:-right-12 lg:-right-16
+                  top-1/2
+                  -translate-y-1/2
+                  z-20
+                  p-3
+                  rounded-full
+                  bg-black/60
+                  text-gold
+                  hover:bg-black/80
+                  transition
+                "
+              >
+                <ChevronRight size={32} />
+              </button>
+            </div>
+          </div>
+        </section>
 
 
       {/* Contact Section */}
@@ -1448,6 +1533,13 @@ function App() {
                   rel="noopener noreferrer"
                 >
                   <Facebook className="text-gold w-10 h-10" />
+                </a>
+                <a
+                  href="https://www.youtube.com/@BullzRacingBMSCE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Youtube className="text-gold w-10 h-10" />
                 </a>
               </div>
 
