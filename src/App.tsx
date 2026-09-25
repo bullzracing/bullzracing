@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'; 
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -137,7 +137,7 @@ function App() {
           setSelectedAchievement(index);
         }, 500); // adjust timing
       }
-      
+
     },
     {
       image: `${import.meta.env.BASE_URL}Resources/Cars/bzr 3.2 edited.jpg`,
@@ -209,6 +209,25 @@ function App() {
 
   const achievements = [
     {
+      id: "supra26",
+      year: '2026',
+      title: '7th Overall',
+      event: 'Supra SAEIndia',
+      description: "Strong performances in the static events showed what our team is capable of, but endurance didn’t go the way we expected. We leave SUPRA SAEIndia 2026 with lessons learned and a stronger resolve to come back better.",
+      points: [
+        { name: 'Skidpad', score: 2 },
+        { name: 'Autocross', score: 2 },
+        { name: 'Cost Report', score: 3 },
+        { name: 'Business Plan Presentation', score: 3 },
+        { name: 'Engineering Design Presentation', score: 7 },
+        { name: 'Acceleration', score: 10 }
+      ],
+      images: [
+        `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach1.JPG`,
+        `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach2.JPG`,
+      ],
+    },
+    {
       id: "fb26",
       year: '2026',
       title: '4th Overall',
@@ -237,9 +256,9 @@ function App() {
         { name: 'Endurance', score: 5 },
         { name: 'Autocross', score: 7 },
         { name: 'Acceleration', score: 8 },
-        
+
         { name: 'Business Plan Presentation Design', score: 5 },
-        { name: 'Engineering Design Presentation', score: 5 }        
+        { name: 'Engineering Design Presentation', score: 5 }
       ],
       images: [
         `${import.meta.env.BASE_URL}Resources/Achievements/supra25ach1.JPG`,
@@ -310,7 +329,7 @@ function App() {
         { name: 'Engineering Design Presentation', score: 5 },
         { name: 'Business Plan Presentation Design', score: 7 },
       ],
-      images: [ 
+      images: [
         `${import.meta.env.BASE_URL}Resources/Achievements/supra23ach1.jpg`,
         `${import.meta.env.BASE_URL}Resources/Achievements/supra23ach2.jpg`,
       ],
@@ -349,9 +368,17 @@ function App() {
 
   const blogs = [
     {
+      id: 'maxwellBlog',
+      title: 'Building Confidence, One Cell at a Time',
+      description: "Bullz Racing’s first EV journey, powered by Maxwell Energy.",
+      author: 'Abhay Gautham and Lipin Kariappa',
+      date: '22nd September, 2026',
+      source: '/Resources/Blogs/maxwellBlog.md'
+    },
+    {
       id: 'tachometer',
       title: 'RGB Based Tachometer Display for BZR4',
-      description: 'Concept to Cockpit #1: Developing a custom RGB based tachometer display for BZR4.', 
+      description: 'Concept to Cockpit #1: Developing a custom RGB based tachometer display for BZR4.',
       author: 'Prateek Moji',
       date: '17th June, 2026',
       source: '/Resources/Blogs/Tachometer.md',
@@ -367,6 +394,10 @@ function App() {
   ];
 
   const newsletters = [
+    {
+      month: 'August 2026',
+      link: 'https://heyzine.com/flip-book/22575ff45f.html'
+    },
     {
       month: 'November 2025',
       link: 'https://heyzine.com/flip-book/d3dec30d8a.html'
@@ -426,6 +457,23 @@ function App() {
   ];
 
   const cars = [
+    {
+      id: "bzr 4.1",
+      name: "BZR 4.1",
+      image: `${import.meta.env.BASE_URL}Resources/Cars/bzr4.1cropped.jpg`,
+      specs: "Carbon Fibre Bodyworks • Ackerman Steering • E-bias for Braking",
+      description: "Our first car to feature full Carbon Fibre bodyworks and E-bias for the braking system.",
+      details: {
+        powertrain: "Combustion",
+        power: "27 hp / 23 Nm Torque",
+        acceleration: "5.2s • 75m",
+        weight: "201 kg",
+      },
+      images: [
+        `${import.meta.env.BASE_URL}Resources/Cars/bzr4.1track.JPG`,
+        `${import.meta.env.BASE_URL}Resources/Cars/bzr4.1static.jpg`,
+      ],
+    },
     {
       id: "bzr4",
       name: 'BZR 4',
@@ -557,10 +605,10 @@ function App() {
   const handlePrevSlide = () => {
     setCurrentSlide((prev) => (prev === 0 ? heroSlides.length - 1 : prev - 1));
   };
-  
+
   const handleNextSlide = () => {
     setCurrentSlide((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1));
-  };  
+  };
 
   const handleNavClick = (id: string) => {
     // If on blog page, switch back first
@@ -599,12 +647,12 @@ function App() {
 
   useEffect(() => {
     const updatePage = () => {
-        const hash = window.location.hash;
-        if (hash.startsWith('#blog/')) {
-          const blogId = hash.replace('#blog/', '');
-          const foundBlog = blogs.find(
-            (blog) => blog.id === blogId
-          );
+      const hash = window.location.hash;
+      if (hash.startsWith('#blog/')) {
+        const blogId = hash.replace('#blog/', '');
+        const foundBlog = blogs.find(
+          (blog) => blog.id === blogId
+        );
         if (foundBlog) {
           setSelectedBlog({
             title: foundBlog.title,
@@ -688,10 +736,10 @@ function App() {
           <h1 className="text-4xl font-bold text-gold mb-6" {...props} />
         ),
         h2: ({ node, ...props }) => (
-          <h2 className="text-3xl font-bold text-gold mb-5" {...props} />
+          <h2 className="text-3xl font-bold text-gold mb-5 clear-both" {...props} />
         ),
         h3: ({ node, ...props }) => (
-          <h3 className="text-2xl font-bold text-gold mb-4" {...props} />
+          <h3 className="text-2xl font-bold text-gold mb-4 clear-both" {...props} />
         ),
         h4: ({ node, ...props }) => (
           <h4 className="text-xl font-bold text-gold mb-3" {...props} />
@@ -702,47 +750,61 @@ function App() {
         em: ({ node, ...props }) => (
           <em className="italic text-silver" {...props} />
         ),
-        p: ({ node, ...props }: any) => {
-          const children = React.Children.toArray(props.children);
-          const isImageOnly =
-            children.length > 0 &&
-            children.every((child) =>
-              typeof child === 'string'
-                ? child.trim() === ''
-                : React.isValidElement(child) && child.type === 'img'
-            );
-
-          return (
-            <p
-              className={`text-silver leading-relaxed mb-6 text-justify ${
-                isImageOnly ? 'flex flex-wrap justify-center gap-6' : ''
-              }`}
-              {...props}
-            />
-          );
-        },
+        p: ({ node, ...props }: any) => (
+          <p
+            className="text-silver leading-relaxed mb-6 text-justify"
+            {...props}
+          />
+        ),
         img: ({ node, ...props }: any) => {
           const src = props.src?.startsWith('/')
             ? `${import.meta.env.BASE_URL}${props.src.replace(/^\/+/, '')}`
             : props.src;
 
           const rawTitle = props.title ?? '';
+
           const classMatch =
             rawTitle.match(/class=(?:(?:"([^"]+)")|(?:'([^']+)')|([^"']+))/) ?? [];
-          const titleClasses = classMatch[1] || classMatch[2] || classMatch[3] || rawTitle;
+
+          const titleClasses =
+            classMatch[1] || classMatch[2] || classMatch[3] || '';
+
+          const isFloatRight = titleClasses.includes('float-right');
+          const isFloatLeft = titleClasses.includes('float-left');
 
           return (
             <img
-              className={`rounded-3xl border border-white/10 shadow-xl my-8 w-full max-w-5xsm mx-auto block ${titleClasses}`.trim()}
               {...props}
               src={src}
+              alt={props.alt || ''}
               loading="eager"
               decoding="sync"
+              className="rounded-3xl border border-white/10 shadow-xl"
+              style={{
+                width: isFloatRight || isFloatLeft ? '600px' : undefined,
+                maxWidth: isFloatRight || isFloatLeft ? 'none' : '100%',
+                height: 'auto',
+
+                float: isFloatRight
+                  ? 'right'
+                  : isFloatLeft
+                    ? 'left'
+                    : 'none',
+
+                marginTop: isFloatRight || isFloatLeft ? '0.5rem' : '2rem',
+                marginBottom: isFloatRight || isFloatLeft ? '1rem' : '2rem',
+
+                marginLeft: isFloatRight ? '2rem' : isFloatLeft ? '0' : 'auto',
+                marginRight: isFloatLeft ? '2rem' : isFloatRight ? '0' : 'auto',
+
+                display: isFloatRight || isFloatLeft ? 'block' : 'block',
+              }}
             />
           );
         },
+
         pre: ({ children }) => <>{children}</>,
-        code ({ className, children, ...props }) {
+        code({ className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || '');
           return match ? (
             <SyntaxHighlighter
@@ -771,6 +833,20 @@ function App() {
   );
 
   const sponsors = [
+    {
+      name: "Maxwell Energy Systems",
+      category: "In-kind",
+      logo: `${import.meta.env.BASE_URL}Resources/Sponsors/MaxwellEnergy.png`,
+      description: "Maxwell Energy Systems are a leading advanced electronics solutions provider, delivering innovative and reliable technologies through world-class engineering, manufacturing excellence, and a commitment to creating long-term value for their customers and stakeholders.",
+      website: "https://www.maxwellenergy.co"
+    },
+    {
+      name: "Aruani Grid",
+      category: "In-kind",
+      logo: `${import.meta.env.BASE_URL}Resources/Sponsors/AruaniGrid.png`,
+      description: "Aruani Grid is Bangalore’s premier motorsports and go-karting destination, offering world-class tracks and training for racing enthusiasts of all skill levels. A hub for aspiring racers, professionals, and motorsport enthusiasts to learn, compete, and grow.",
+      website: "https://aruanigrid.com",
+    },
     {
       name: "Ace Micromatic Group",
       category: "Monetary",
@@ -951,11 +1027,10 @@ function App() {
                     e.preventDefault();
                     handleNavClick(item.id);
                   }}
-                  className={`text-sm font-medium transition-colors ${
-                    activeSection === item.id
-                      ? 'text-gold drop-shadow-[0_0_8px_rgba(0,0,0,1)]'
-                      : 'text-gray-300 hover:text-gold'
-                  }`}
+                  className={`text-sm font-medium transition-colors ${activeSection === item.id
+                    ? 'text-gold drop-shadow-[0_0_8px_rgba(0,0,0,1)]'
+                    : 'text-gray-300 hover:text-gold'
+                    }`}
                 >
                   {item.label}
                 </a>
@@ -965,11 +1040,10 @@ function App() {
         </div>
 
         <div
-          className={`transform transition-all duration-500 ease-in-out md:hidden border-t border-white/5 ${
-            isMenuOpen
-              ? 'opacity-100 translate-y-0 max-h-96'
-              : 'opacity-0 -translate-y-5 max-h-0 pointer-events-none'
-          } overflow-hidden`}
+          className={`transform transition-all duration-500 ease-in-out md:hidden border-t border-white/5 ${isMenuOpen
+            ? 'opacity-100 translate-y-0 max-h-96'
+            : 'opacity-0 -translate-y-5 max-h-0 pointer-events-none'
+            } overflow-hidden`}
         >
           <div className="flex overflow-x-auto px-4 py-2 space-x-4 scrollbar-hide">
             {navItems.map((item) => (
@@ -977,11 +1051,10 @@ function App() {
                 key={item.id}
                 href={`#${item.id}`}
                 onClick={() => setIsMenuOpen(false)}
-                className={`flex-shrink-0 text-sm font-medium transition-colors whitespace-nowrap ${
-                  activeSection === item.id
-                    ? 'text-gold'
-                    : 'text-gray-300 hover:text-gold'
-                }`}
+                className={`flex-shrink-0 text-sm font-medium transition-colors whitespace-nowrap ${activeSection === item.id
+                  ? 'text-gold'
+                  : 'text-gray-300 hover:text-gold'
+                  }`}
               >
                 {item.label}
               </a>
@@ -1000,8 +1073,17 @@ function App() {
             >
               ← Back to Bullz Racing
             </button>
-            <div className="glass-card rounded-3xl p-6 bg-black/70 border border-white/10">
-              <h1 className="text-4xl font-bold text-gold mb-4">{selectedBlog?.title}</h1>
+            <div className="glass-card rounded-3xl p-6 bg-black/70 border border-white/10 relative">
+              <div className="flex items-start justify-between gap-6">
+                <h1 className="text-4xl font-bold text-gold mb-4 flex-1">{selectedBlog?.title}</h1>
+                {selectedBlog?.file.includes('maxwellBlog') && (
+                  <img
+                    src={`${import.meta.env.BASE_URL}Resources/Blogs/maxwellLogo3.png`}
+                    alt="Maxwell Energy Systems"
+                    className="w-[200px] h-auto object-contain flex-shrink-0"
+                  />
+                )}
+              </div>
               <p className="text-silver mb-6 text-lg italic">{selectedBlog?.author} • {selectedBlog?.date}</p>
               {isBlogLoading && <p className="text-silver">Loading blog content…</p>}
               {blogError && <p className="text-red-400">{blogError}</p>}
@@ -1040,106 +1122,106 @@ function App() {
                 className="w-full h-full object-cover sm:w-full sm:h-auto"
               />
 
-              <div className="absolute inset-0 z-20 flex items-center justify-center">
-                <div className="text-center px-4">
-                  <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-6xl font-bold mb-4 text-gold drop-shadow-[4px_4px_10px_rgba(0,0,0,1)]"
-                  >
-                    {slide.title}
-                  </motion.h1>
-                  <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="text-3xl font-semibold mb-2 text-white drop-shadow-[8px_8px_10px_rgba(0,0,0,1)]"
-                  >
-                    {slide.subtitle}
-                  </motion.p>
-                  <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                    className="text-xl text-white max-w-2xl mx-auto drop-shadow-[8px_8px_10px_rgba(0,0,0,1)]"
-                  >
-                    {slide.desc}
-                  </motion.p>
+                  <div className="absolute inset-0 z-20 flex items-center justify-center">
+                    <div className="text-center px-4">
+                      <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="text-6xl font-bold mb-4 text-gold drop-shadow-[4px_4px_10px_rgba(0,0,0,1)]"
+                      >
+                        {slide.title}
+                      </motion.h1>
+                      <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="text-3xl font-semibold mb-2 text-white drop-shadow-[8px_8px_10px_rgba(0,0,0,1)]"
+                      >
+                        {slide.subtitle}
+                      </motion.p>
+                      <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                        className="text-xl text-white max-w-2xl mx-auto drop-shadow-[8px_8px_10px_rgba(0,0,0,1)]"
+                      >
+                        {slide.desc}
+                      </motion.p>
+                    </div>
+                  </div>
                 </div>
+              ))}
+            </div>
+          </section>
+
+          {/* About Section */}
+          <section id="about" className="py-20 bg-black">
+            <div className="max-w-7xl mx-auto px-4">
+              <h2 className="text-4xl font-bold mb-12 text-center text-gold">About Us</h2>
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <img
+                    src="./Resources/Home/cover.jpg"
+                    alt="Team working"
+                    className="rounded-lg shadow-xl w-128"
+                  />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="space-y-8"
+                >
+                  <p className="text-silver text-lg leading-relaxed">
+                    The official Formula Student Team of B.M.S College of Engineering, BULLZ RACING is a passionate team of engineering students dedicated to designing, building, and racing formula-style race cars. We combine innovation, determination, and technical expertise to compete among the top teams at the national level.
+                  </p>
+                  <div className="grid grid-cols-2 gap-8">
+                    <div className="glass-card p-6 rounded-lg text-center">
+                      <p className="text-3xl font-bold text-gold mb-2">80+</p>
+                      <p className="text-silver">Team Members</p>
+                    </div>
+                    <a href="#cars">
+                      <div className="glass-card p-6 rounded-lg text-center cursor-pointer hover:scale-105 transition-transform">
+                        <p className="text-3xl font-bold text-gold mb-2">8</p>
+                        <p className="text-silver">Completed FS Cars</p>
+                      </div>
+                    </a>
+
+                  </div>
+                </motion.div>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
+          </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 bg-black">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-12 text-center text-gold">About Us</h2>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <img
-                src="./Resources/Home/cover.jpg"
-                alt="Team working"
-                className="rounded-lg shadow-xl w-128"
-              />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="space-y-8"
-            >
-              <p className="text-silver text-lg leading-relaxed">
-              The official Formula Student Team of B.M.S College of Engineering, BULLZ RACING is a passionate team of engineering students dedicated to designing, building, and racing formula-style race cars. We combine innovation, determination, and technical expertise to compete among the top teams at the national level.
-              </p>
-              <div className="grid grid-cols-2 gap-8">
-                <div className="glass-card p-6 rounded-lg text-center">
-                  <p className="text-3xl font-bold text-gold mb-2">80+</p>
-                  <p className="text-silver">Team Members</p>
-                </div>
-                <a href="#cars">
-                  <div className="glass-card p-6 rounded-lg text-center cursor-pointer hover:scale-105 transition-transform">
-                    <p className="text-3xl font-bold text-gold mb-2">6</p>
-                    <p className="text-silver">Completed FS Cars</p>
-                  </div>
-                </a>
-
+          {/* Insights Section */}
+          <section id="insights" className="py-20 bg-dark">
+            <div className="max-w-7xl mx-auto px-4">
+              <h2 className="text-4xl font-bold mb-12 text-center text-gold">Insights</h2>
+              <div className="grid md:grid-cols-3 gap-8">
+                {insights.map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="glass-card p-8 rounded-xl cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition-transform"
+                    onClick={() => setSelectedInsight(index)}
+                  >
+                    <h3 className="text-2xl font-bold text-gold mb-4">{item.title}</h3>
+                    <p className="text-silver leading-relaxed">{item.description}</p>
+                  </motion.div>
+                ))}
               </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Insights Section */}
-      <section id="insights" className="py-20 bg-dark">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-12 text-center text-gold">Insights</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {insights.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-card p-8 rounded-xl cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition-transform"
-                onClick={() => setSelectedInsight(index)}
-              >
-                <h3 className="text-2xl font-bold text-gold mb-4">{item.title}</h3>
-                <p className="text-silver leading-relaxed">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </div>
+          </section>
         </>
       )}
 
@@ -1163,19 +1245,19 @@ function App() {
               <h3 className="text-3xl font-bold text-gold">{insights[selectedInsight].title}</h3>
               {selectedInsight === 0 ? (
                 <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
-                      {blogs.map((blog, index) => (
-                        <div
-                          key={index}
-                          className="rounded-3xl border border-white/10 bg-black/50 p-5 cursor-pointer transition hover:border-gold hover:bg-white/5"
-                          onClick={() => {
-                            window.location.hash = `#blog/${blog.id}`;
-                            setSelectedInsight(null);
-                          }}
-                        >
-                    <h4 className="text-2xl font-semibold text-gold">{blog.title}</h4>
-                    <p className="text-silver mt-2">{blog.description}</p>
-                  </div>
-                ))}
+                  {blogs.map((blog, index) => (
+                    <div
+                      key={index}
+                      className="rounded-3xl border border-white/10 bg-black/50 p-5 cursor-pointer transition hover:border-gold hover:bg-white/5"
+                      onClick={() => {
+                        window.location.hash = `#blog/${blog.id}`;
+                        setSelectedInsight(null);
+                      }}
+                    >
+                      <h4 className="text-2xl font-semibold text-gold">{blog.title}</h4>
+                      <p className="text-silver mt-2">{blog.description}</p>
+                    </div>
+                  ))}
                 </div>
               ) : selectedInsight === 1 ? (
                 <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
@@ -1242,9 +1324,8 @@ function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className={`group cursor-pointer ${
-                    isLast && isOddLastRow ? "md:col-start-2" : ""
-                  }`}
+                  className={`group cursor-pointer ${isLast && isOddLastRow ? "md:col-start-2" : ""
+                    }`}
                   onClick={() => setSelectedCar(index)}
                 >
                   <div className="relative overflow-hidden rounded-lg">
@@ -1461,7 +1542,7 @@ function App() {
                   <Youtube className="text-gold w-10 h-10" />
                 </a>
               </div>
-              
+
             </div>
           </div>
         </div>
@@ -1523,7 +1604,7 @@ function App() {
       </AnimatePresence>
 
       {selectedImage && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50 p-4"
           onClick={() => setSelectedImage(null)}
         >
@@ -1602,7 +1683,7 @@ function App() {
                     <p className="text-silver">{cars[selectedCar].details.weight}</p>
                   </div>
                 </div>
-                
+
               </div>
             </motion.div>
           </Modal>
@@ -1610,45 +1691,45 @@ function App() {
       </AnimatePresence>
 
       <Modal isOpen={!!selectedSponsor} onClose={() => setSelectedSponsor(null)}>
-  {selectedSponsor && (
-    <div className="p-6 relative bg-black rounded-lg text-left">
-      {/* Close Button */}
-      <button
-        onClick={() => setSelectedSponsor(null)}
-        className="absolute top-2 right-2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition"
-      >
-        ✕
-      </button>
+        {selectedSponsor && (
+          <div className="p-6 relative bg-black rounded-lg text-left">
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedSponsor(null)}
+              className="absolute top-2 right-2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition"
+            >
+              ✕
+            </button>
 
-      {/* Sponsor Logo */}
-      <div className="mb-4">
-        <img 
-          src={selectedSponsor.logo}
-          alt={selectedSponsor.name}
-          className="w-auto h-auto max-w-80% max-h-[250px] object-contain opacity-100 transition-opacity"
-        />
-      </div>
+            {/* Sponsor Logo */}
+            <div className="mb-4">
+              <img
+                src={selectedSponsor.logo}
+                alt={selectedSponsor.name}
+                className="w-auto h-auto max-w-80% max-h-[250px] object-contain opacity-100 transition-opacity"
+              />
+            </div>
 
-      {/* Sponsor Info */}
-      <h2 className="text-2xl font-bold text-white mb-2">{selectedSponsor.name}</h2>
-      <p className="text-amber-500 mb-4">{selectedSponsor.category}</p>
-      <p className="text-neutral-300 mb-6">{selectedSponsor.description}</p>
+            {/* Sponsor Info */}
+            <h2 className="text-2xl font-bold text-white mb-2">{selectedSponsor.name}</h2>
+            <p className="text-amber-500 mb-4">{selectedSponsor.category}</p>
+            <p className="text-neutral-300 mb-6">{selectedSponsor.description}</p>
 
-      {/* Website Link */}
-      <div>
-        <a 
-          href={selectedSponsor.website}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center space-x-2 text-amber-500 hover:text-amber-400"
-        >
-          <span>Visit Website</span>
-          <ExternalLink size={16} />
-        </a>
-      </div>
-    </div>
-  )}
-</Modal>
+            {/* Website Link */}
+            <div>
+              <a
+                href={selectedSponsor.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-2 text-amber-500 hover:text-amber-400"
+              >
+                <span>Visit Website</span>
+                <ExternalLink size={16} />
+              </a>
+            </div>
+          </div>
+        )}
+      </Modal>
 
 
     </div>
