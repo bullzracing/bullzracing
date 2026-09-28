@@ -66,7 +66,7 @@ function App() {
   };
   const heroSlides = [
     {
-      image: `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach2.jpg`,
+      image: `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach2.JPG`,
       title: '7th Overall',
       subtitle: 'Supra SAEIndia 2026',
       desc: 'Buddh International Circuit, Noida',
