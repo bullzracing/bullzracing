@@ -66,6 +66,41 @@ function App() {
   };
   const heroSlides = [
     {
+      image: `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach2.jpg`,
+      title: '7th Overall',
+      subtitle: 'Supra SAEIndia 2026',
+      desc: 'Buddh International Circuit, Noida',
+      action: () => {
+        document.getElementById("achievements")?.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => {
+          const index = achievements.findIndex(a => a.id === "supra26");
+          setSelectedAchievement(index);
+        }, 500);
+      }
+    },
+    {
+      image: `${import.meta.env.BASE_URL}Resources/Cars/bzr4.1.jpeg`,
+      title: 'BZR-4.1',
+      subtitle: "Supra '26",
+      desc: 'Buddh International Circuit, Noida',
+      action: () => {
+        document.getElementById("cars")?.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => {
+          const index = cars.findIndex(a => a.id === "bzr 4.1");
+          setSelectedCar(index);
+        }, 500); 
+      }
+    }, 
+    {
+      image: `${import.meta.env.BASE_URL}Resources/Blogs/maxwellBg.jpg`,
+      title: 'Building Confidence, One Cell at a Time',
+      subtitle: 'Maxwell Energy Systems x Bullz Racing',
+      desc: "Bullz Racing’s first EV journey, powered by Maxwell Energy - click to read",
+      action: () => {
+        openBlogPage({ id: 'maxwellBlog' });
+      }
+    }, 
+    {
       image: '/Resources/Home/TachoBgV2.jpg',
       title: 'BZR4 - Tachometer',
       subtitle: 'Concept to Cockpit #1',
@@ -178,33 +213,6 @@ function App() {
         }, 500); // adjust timing
       }
     },
-    {
-      image: `${import.meta.env.BASE_URL}Resources/Home/supra24home.JPG`,
-      title: '4th Overall',
-      subtitle: 'Supra SAEIndia 2024',
-      desc: 'Buddh International Circuit, Noida'
-      ,
-      action: () => {
-        document.getElementById("achievements")?.scrollIntoView({ behavior: "smooth" });
-        setTimeout(() => {
-          const index = achievements.findIndex(a => a.id === "supra24");
-          setSelectedAchievement(index);
-        }, 500); // adjust timing
-      }
-    },
-    {
-      image: `${import.meta.env.BASE_URL}Resources/Home/bzr3supra.png`,
-      title: 'BZR-03',
-      subtitle: 'Supra \'24',
-      desc: 'Buddh International Circuit, Noida',
-      action: () => {
-        document.getElementById("cars")?.scrollIntoView({ behavior: "smooth" });
-        setTimeout(() => {
-          const index = cars.findIndex(a => a.id === "bzr3");
-          setSelectedCar(index);
-        }, 500); // adjust timing
-      }
-    },
   ];
 
   const achievements = [
@@ -224,7 +232,7 @@ function App() {
       ],
       images: [
         `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach1.JPG`,
-        `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach2.JPG`,
+        `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach2a.jpeg`,
       ],
     },
     {
@@ -461,7 +469,7 @@ function App() {
       id: "bzr 4.1",
       name: "BZR 4.1",
       image: `${import.meta.env.BASE_URL}Resources/Cars/bzr4.1cropped.jpg`,
-      specs: "Carbon Fibre Bodyworks • Ackerman Steering • E-bias for Braking",
+      specs: "Carbon Fibre Bodyworks • Ackermann Steering • E-bias for Braking",
       description: "Our first car to feature full Carbon Fibre bodyworks and E-bias for the braking system.",
       details: {
         powertrain: "Combustion",
@@ -470,8 +478,8 @@ function App() {
         weight: "201 kg",
       },
       images: [
-        `${import.meta.env.BASE_URL}Resources/Cars/bzr4.1track.JPG`,
-        `${import.meta.env.BASE_URL}Resources/Cars/bzr4.1static.jpg`,
+        `${import.meta.env.BASE_URL}Resources/Cars/bzr4.1track1.jpeg`,
+        `${import.meta.env.BASE_URL}Resources/Cars/bzr4.1static1.jpeg`,
       ],
     },
     {
@@ -1484,8 +1492,8 @@ function App() {
                 <Phone className="text-gold w-6 h-6" />
                 <div>
                   <p className="text-white font-medium">Phone</p>
-                  <a href="tel:+919008502922" className="text-silver hover:text-gold transition-colors">
-                    +91 90085 02922
+                  <a href="tel:+918401466637" className="text-silver hover:text-gold transition-colors">
+                    +91 84014 66637
                   </a>
                 </div>
               </div>
