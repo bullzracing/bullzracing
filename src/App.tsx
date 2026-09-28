@@ -760,7 +760,7 @@ function App() {
         ),
         p: ({ node, ...props }: any) => (
           <p
-            className="text-silver leading-relaxed mb-6 text-justify"
+            className="text-silver leading-relaxed mb-6 text-left min-[769px]:text-justify"
             {...props}
           />
         ),
@@ -779,6 +779,11 @@ function App() {
 
           const isFloatRight = titleClasses.includes('float-right');
           const isFloatLeft = titleClasses.includes('float-left');
+          const imageLayoutClass = isFloatRight
+            ? 'blog-image--float-right'
+            : isFloatLeft
+              ? 'blog-image--float-left'
+              : 'blog-image--standalone';
 
           return (
             <img
@@ -787,26 +792,7 @@ function App() {
               alt={props.alt || ''}
               loading="eager"
               decoding="sync"
-              className="rounded-3xl border border-white/10 shadow-xl"
-              style={{
-                width: isFloatRight || isFloatLeft ? '600px' : undefined,
-                maxWidth: isFloatRight || isFloatLeft ? 'none' : '100%',
-                height: 'auto',
-
-                float: isFloatRight
-                  ? 'right'
-                  : isFloatLeft
-                    ? 'left'
-                    : 'none',
-
-                marginTop: isFloatRight || isFloatLeft ? '0.5rem' : '2rem',
-                marginBottom: isFloatRight || isFloatLeft ? '1rem' : '2rem',
-
-                marginLeft: isFloatRight ? '2rem' : isFloatLeft ? '0' : 'auto',
-                marginRight: isFloatLeft ? '2rem' : isFloatRight ? '0' : 'auto',
-
-                display: isFloatRight || isFloatLeft ? 'block' : 'block',
-              }}
+              className={`blog-image ${imageLayoutClass} rounded-3xl border border-white/10 shadow-xl`}
             />
           );
         },
@@ -1073,22 +1059,22 @@ function App() {
 
       {/* Hero Section */}
       {page === 'blog' ? (
-        <section className="min-h-screen py-20 bg-dark">
-          <div className="max-w-7xl mx-auto px-2">
+        <section className="min-h-screen w-full py-20 bg-dark">
+          <div className="w-full min-w-0 max-w-7xl mx-auto px-2">
             <button
               onClick={closeBlogPage}
               className="mb-8 inline-flex items-center rounded-full border border-white/20 bg-black/50 px-4 py-2 text-sm text-white transition hover:bg-black/70"
             >
               ← Back to Bullz Racing
             </button>
-            <div className="glass-card rounded-3xl p-6 bg-black/70 border border-white/10 relative">
-              <div className="flex items-start justify-between gap-6">
-                <h1 className="text-4xl font-bold text-gold mb-4 flex-1">{selectedBlog?.title}</h1>
+            <div className="glass-card w-full min-w-0 rounded-3xl p-4 md:p-6 bg-black/70 border border-white/10 relative">
+              <div className="flex min-w-0 flex-col items-start justify-between gap-6 md:flex-row">
+                <h1 className="order-last md:order-none w-full min-w-0 text-4xl font-bold text-gold mb-4 flex-1">{selectedBlog?.title}</h1>
                 {selectedBlog?.file.includes('maxwellBlog') && (
                   <img
                     src={`${import.meta.env.BASE_URL}Resources/Blogs/maxwellLogo3.png`}
                     alt="Maxwell Energy Systems"
-                    className="w-[200px] h-auto object-contain flex-shrink-0"
+                    className="order-first md:order-none self-center md:self-auto w-[160px] md:w-[200px] max-w-full h-auto object-contain flex-shrink-0"
                   />
                 )}
               </div>
