@@ -67,6 +67,42 @@
   background-color: #0A0A0A;
 }
 
+.blog-image {
+  display: block;
+  height: auto;
+}
+
+.blog-image--float-right {
+  width: 600px;
+  max-width: none;
+  float: right;
+  margin: 0.5rem 0 1rem 2rem;
+}
+
+.blog-image--float-left {
+  width: 600px;
+  max-width: none;
+  float: left;
+  margin: 0.5rem 2rem 1rem 0;
+}
+
+.blog-image--standalone {
+  width: auto;
+  max-width: 100%;
+  float: none;
+  margin: 2rem auto;
+}
+
+@media (max-width: 768px) {
+  .blog-image {
+    width: 100%;
+    max-width: 100%;
+    float: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 .modal-overlay {
   background-color: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(4px);
