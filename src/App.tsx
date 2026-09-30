@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { blogs } from './blogData';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -66,7 +67,8 @@ function App() {
   };
   const heroSlides = [
     {
-      image: `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach2.JPG`,
+      image: `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach2-hero.jpg`,
+      mobileImage: `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach2-hero-mobile.jpg`,
       title: '7th Overall',
       subtitle: 'Supra SAEIndia 2026',
       desc: 'Buddh International Circuit, Noida',
@@ -79,7 +81,8 @@ function App() {
       }
     },
     {
-      image: `${import.meta.env.BASE_URL}Resources/Cars/bzr4.1.jpeg`,
+      image: `${import.meta.env.BASE_URL}Resources/Cars/bzr4.1-hero.jpg`,
+      mobileImage: `${import.meta.env.BASE_URL}Resources/Cars/bzr4.1-hero-mobile.jpg`,
       title: 'BZR-4.1',
       subtitle: "Supra '26",
       desc: 'Buddh International Circuit, Noida',
@@ -92,7 +95,8 @@ function App() {
       }
     }, 
     {
-      image: `${import.meta.env.BASE_URL}Resources/Blogs/maxwellBg.jpg`,
+      image: `${import.meta.env.BASE_URL}Resources/Blogs/Maxwell/maxwellBg-hero.jpg`,
+      mobileImage: `${import.meta.env.BASE_URL}Resources/Blogs/Maxwell/maxwellBg-hero-mobile.jpg`,
       title: 'Building Confidence, One Cell at a Time',
       subtitle: 'Maxwell Energy Systems x Bullz Racing',
       desc: "Bullz Racing’s first EV journey, powered by Maxwell Energy - click to read",
@@ -101,7 +105,8 @@ function App() {
       }
     }, 
     {
-      image: '/Resources/Home/TachoBgV2.jpg',
+      image: '/Resources/Blogs/Tachometer/TachoBgV2-hero.jpg',
+      mobileImage: '/Resources/Blogs/Tachometer/TachoBgV2-hero-mobile.jpg',
       title: 'BZR4 - Tachometer',
       subtitle: 'Concept to Cockpit #1',
       desc: 'Custom RGB Based Tachometer Display for BZR4 - click to read',
@@ -118,7 +123,8 @@ function App() {
       } 
     },
     {
-      image: `${import.meta.env.BASE_URL}Resources/Home/FB26_2_alt.jpg`,
+      image: `${import.meta.env.BASE_URL}Resources/Blogs/FB26/FB26_2_alt-hero.jpg`,
+      mobileImage: `${import.meta.env.BASE_URL}Resources/Blogs/FB26/FB26_2_alt-hero-mobile.jpg`,
       title: 'FB \'26',
       subtitle: 'The One That Changed Us',
       desc: 'Our FB \'26 Story - click to read',
@@ -135,7 +141,8 @@ function App() {
       } 
     },
     {
-      image: `${import.meta.env.BASE_URL}Resources/Home/fb26home.jpg`,
+      image: `${import.meta.env.BASE_URL}Resources/Home/fb26home-hero.jpg`,
+      mobileImage: `${import.meta.env.BASE_URL}Resources/Home/fb26home-hero-mobile.jpg`,
       title: '4th Overall',
       subtitle: 'Formula Bharat 2026',
       desc: 'Kari Motor Speedway, Coimbatore',
@@ -148,7 +155,8 @@ function App() {
       }
     },
     {
-      image: `${import.meta.env.BASE_URL}Resources/Cars/bzr4.jpg`,
+      image: `${import.meta.env.BASE_URL}Resources/Cars/bzr4-hero.jpg`,
+      mobileImage: `${import.meta.env.BASE_URL}Resources/Cars/bzr4-hero-mobile.jpg`,
       title: 'BZR-4',
       subtitle: 'BZR 4 Reveal',
       desc: 'BMSCE, Bengaluru',
@@ -161,7 +169,8 @@ function App() {
       }
     },
     {
-      image: `${import.meta.env.BASE_URL}Resources/Home/supra25home.jpg`,
+      image: `${import.meta.env.BASE_URL}Resources/Home/supra25home-hero.jpg`,
+      mobileImage: `${import.meta.env.BASE_URL}Resources/Home/supra25home-hero-mobile.jpg`,
       title: '5th Overall',
       subtitle: 'Supra SAEIndia 2025',
       desc: 'Buddh International Circuit, Noida',
@@ -175,7 +184,8 @@ function App() {
 
     },
     {
-      image: `${import.meta.env.BASE_URL}Resources/Cars/bzr 3.2 edited.jpg`,
+      image: `${import.meta.env.BASE_URL}Resources/Cars/bzr 3.2 edited-hero.jpg`,
+      mobileImage: `${import.meta.env.BASE_URL}Resources/Cars/bzr 3.2 edited-hero-mobile.jpg`,
       title: 'BZR-3.2',
       subtitle: 'Supra \'25',
       desc: 'Buddh International Circuit, Noida',
@@ -188,7 +198,8 @@ function App() {
       }
     },
     {
-      image: `${import.meta.env.BASE_URL}Resources/Home/fb25home.jpg`,
+      image: `${import.meta.env.BASE_URL}Resources/Home/fb25home-hero.jpg`,
+      mobileImage: `${import.meta.env.BASE_URL}Resources/Home/fb25home-hero-mobile.jpg`,
       title: '6th Overall',
       subtitle: 'Formula Bharat 2025',
       desc: 'Kari Motor Speedway, Coimbatore',
@@ -201,7 +212,8 @@ function App() {
       }
     },
     {
-      image: `${import.meta.env.BASE_URL}Resources/Home/bzr3.1.jpg`,
+      image: `${import.meta.env.BASE_URL}Resources/Home/bzr3.1-hero.jpg`,
+      mobileImage: `${import.meta.env.BASE_URL}Resources/Home/bzr3.1-hero-mobile.jpg`,
       title: 'BZR-3.1',
       subtitle: 'FB \'25',
       desc: 'Kari Motor Speedway, Coimbatore',
@@ -231,7 +243,7 @@ function App() {
         { name: 'Acceleration', score: 10 }
       ],
       images: [
-        `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach1.JPG`,
+        `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach1-optimized.jpg`,
         `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach2a.jpeg`,
       ],
     },
@@ -249,7 +261,7 @@ function App() {
       ],
       images: [
         `${import.meta.env.BASE_URL}Resources/Achievements/fb26ach1.jpeg`,
-        `${import.meta.env.BASE_URL}Resources/Achievements/fb26ach2.jpg`,
+        `${import.meta.env.BASE_URL}Resources/Achievements/fb26ach2-optimized.jpg`,
       ],
     },
     {
@@ -269,7 +281,7 @@ function App() {
         { name: 'Engineering Design Presentation', score: 5 }
       ],
       images: [
-        `${import.meta.env.BASE_URL}Resources/Achievements/supra25ach1.JPG`,
+        `${import.meta.env.BASE_URL}Resources/Achievements/supra25ach1-optimized.jpg`,
         `${import.meta.env.BASE_URL}Resources/Achievements/supra25ach2.jpg`,
       ],
     },
@@ -286,7 +298,7 @@ function App() {
       ],
       images: [
         `${import.meta.env.BASE_URL}Resources/Achievements/fb25ach1.jpg`,
-        `${import.meta.env.BASE_URL}Resources/Achievements/fb25ach2.jpg`,
+        `${import.meta.env.BASE_URL}Resources/Achievements/fb25ach2-optimized.jpg`,
       ],
     }
     ,
@@ -306,8 +318,8 @@ function App() {
         { name: 'Skidpad', score: 8 }
       ],
       images: [
-        `${import.meta.env.BASE_URL}Resources/Achievements/supra24ach1.JPG`,
-        `${import.meta.env.BASE_URL}Resources/Achievements/supra24ach2.JPG`,
+        `${import.meta.env.BASE_URL}Resources/Achievements/supra24ach1-optimized.jpg`,
+        `${import.meta.env.BASE_URL}Resources/Achievements/supra24ach2-optimized.jpg`,
       ],
     },
     {
@@ -322,7 +334,7 @@ function App() {
         { name: 'Cost Report', score: 11 },
       ],
       images: [
-        `${import.meta.env.BASE_URL}Resources/Achievements/fb24ach1.JPG`,
+        `${import.meta.env.BASE_URL}Resources/Achievements/fb24ach1-optimized.jpg`,
         `${import.meta.env.BASE_URL}Resources/Achievements/fb24ach2.JPG`,
       ],
     },
@@ -338,8 +350,8 @@ function App() {
         { name: 'Business Plan Presentation Design', score: 7 },
       ],
       images: [
-        `${import.meta.env.BASE_URL}Resources/Achievements/supra23ach1.jpg`,
-        `${import.meta.env.BASE_URL}Resources/Achievements/supra23ach2.jpg`,
+        `${import.meta.env.BASE_URL}Resources/Achievements/supra23ach1-optimized.jpg`,
+        `${import.meta.env.BASE_URL}Resources/Achievements/supra23ach2-optimized.jpg`,
       ],
     },
     {
@@ -372,33 +384,6 @@ function App() {
       description: 'Stay informed regarding all team announcements and club acitivities from Bullz Racing.',
       content: 'Coming soon!',
     },
-  ];
-
-  const blogs = [
-    {
-      id: 'maxwellBlog',
-      title: 'Building Confidence, One Cell at a Time',
-      description: "Bullz Racing’s first EV journey, powered by Maxwell Energy.",
-      author: 'Abhay Gautham and Lipin Kariappa',
-      date: '22nd September, 2026',
-      source: '/Resources/Blogs/maxwellBlog.md'
-    },
-    {
-      id: 'tachometer',
-      title: 'RGB Based Tachometer Display for BZR4',
-      description: 'Concept to Cockpit #1: Developing a custom RGB based tachometer display for BZR4.',
-      author: 'Prateek Moji',
-      date: '17th June, 2026',
-      source: '/Resources/Blogs/Tachometer.md',
-    },
-    {
-      id: 'fb26',
-      title: "FB '26: The One That Changed Us",
-      description: 'A behind-the-scenes look at our most defining FB campaign yet.',
-      author: 'S Prapthisha and Ishan Patil',
-      date: '8th April, 2026',
-      source: '/Resources/Blogs/FB26.md',
-    }
   ];
 
   const newsletters = [
@@ -478,8 +463,8 @@ function App() {
         weight: "201 kg",
       },
       images: [
-        `${import.meta.env.BASE_URL}Resources/Cars/bzr4.1track1.jpeg`,
-        `${import.meta.env.BASE_URL}Resources/Cars/bzr4.1static1.jpeg`,
+        `${import.meta.env.BASE_URL}Resources/Cars/bzr4.1track1-optimized.jpg`,
+        `${import.meta.env.BASE_URL}Resources/Cars/bzr4.1static1-optimized.jpg`,
       ],
     },
     {
@@ -503,7 +488,7 @@ function App() {
     {
       id: "bzr3.2",
       name: 'BZR 3.2',
-      image: `${import.meta.env.BASE_URL}Resources/Cars/bzr 3.2 edited.jpg`,
+      image: `${import.meta.env.BASE_URL}Resources/Cars/bzr 3.2 edited-optimized.jpg`,
       specs: 'Bodywork Upgrades • Digital Dashboard • Improvised DAQ',
       description: 'Our first Formula Student Car to feature a full aerodynamics package.',
       details: {
@@ -514,7 +499,7 @@ function App() {
         features: ['In-house Manufactured Aero Package with redesigned sidepods', 'Custom Tachometer', 'High Performance Cooling System'],
       },
       images: [
-        `${import.meta.env.BASE_URL}Resources/Cars/bzr3.2rolling.JPG`,
+        `${import.meta.env.BASE_URL}Resources/Cars/bzr3.2rolling-optimized.jpg`,
         `${import.meta.env.BASE_URL}Resources/Cars/bzr3.2track.JPG`,
       ],
     },
@@ -557,7 +542,7 @@ function App() {
     {
       id: "bzr2.1",
       name: 'BZR 2.1',
-      image: `${import.meta.env.BASE_URL}Resources/Cars/Bullz x FB 23 (124) - Copy.JPG`,
+      image: `${import.meta.env.BASE_URL}Resources/Cars/Bullz x FB 23 (124) - Copy-optimized.jpg`,
       specs: 'Improvised In-House Manufacturing of Composites • Basic Telemetry • Improved Driver Safety',
       description: 'With some upgrades from BZR 02, BZR 2.1 was our first car to participate in Formula Bharat.',
       details: {
@@ -568,8 +553,8 @@ function App() {
         features: ['Regenerative braking', 'Aluminium chassis', 'Custom battery pack'],
       },
       images: [
-        `${import.meta.env.BASE_URL}Resources/Cars/Bullz x FB 23 (124) - Copy.JPG`,
-        `${import.meta.env.BASE_URL}Resources/Cars/Bullz x FB 23 (17).JPG`,
+        `${import.meta.env.BASE_URL}Resources/Cars/Bullz x FB 23 (124) - Copy-optimized.jpg`,
+        `${import.meta.env.BASE_URL}Resources/Cars/Bullz x FB 23 (17)-optimized.jpg`,
       ],
     },
     {
@@ -593,7 +578,7 @@ function App() {
     {
       id: "bzr1",
       name: 'BZR 01',
-      image: `${import.meta.env.BASE_URL}Resources/Cars/IMG_5969.JPG`,
+      image: `${import.meta.env.BASE_URL}Resources/Cars/IMG_5969-optimized.jpg`,
       specs: 'Combustion Engine • First FS Car • 390cc Engine',
       description: "BZR 01 was Bullz Racing's first Formula Student Car, transitioning from Go-Karts and Formula E-Baja.",
       details: {
@@ -604,8 +589,8 @@ function App() {
         features: ['Steel tube frame', 'Manual sequential gearbox', 'Basic telemetry'],
       },
       images: [
-        `${import.meta.env.BASE_URL}Resources/Cars/IMG_5969.JPG`,
-        `${import.meta.env.BASE_URL}Resources/Cars/20220824_192525.jpg`,
+        `${import.meta.env.BASE_URL}Resources/Cars/IMG_5969-optimized.jpg`,
+        `${import.meta.env.BASE_URL}Resources/Cars/20220824_192525-optimized.jpg`,
       ],
     },
   ];
@@ -693,7 +678,6 @@ function App() {
       return;
     }
 
-    const insight = insights[0];
     if (!selectedBlog) {
       setBlogText('');
       setBlogError(null);
@@ -735,8 +719,21 @@ function App() {
     }
   }, [page]);
 
-  const renderBlogParagraphs = (text: string) => (
-    <ReactMarkdown
+  const renderBlogParagraphs = (text: string) => {
+    const blogImageDimensions: Record<string, { width: number; height: number }> = {
+      'maxwellbms1-optimized.jpg': { width: 1200, height: 1200 },
+      'maxwellapp-optimized.jpg': { width: 1600, height: 900 },
+      'maxwellmeeting1-optimized.jpg': { width: 1600, height: 1042 },
+      'maxwelllearn-optimized.jpg': { width: 1600, height: 1063 },
+      'fb26_2-optimized.jpg': { width: 1800, height: 2250 },
+      'fb26_4-optimized.jpg': { width: 1800, height: 1199 },
+      'fb26_5-optimized.jpg': { width: 1800, height: 1199 },
+      'fb26_6-optimized.jpg': { width: 1800, height: 1440 },
+      'fb26_8-optimized.jpg': { width: 1800, height: 1440 },
+      'fb26_12-optimized.jpg': { width: 1800, height: 1350 },
+    };
+
+    return <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeRaw]}
       components={{
@@ -779,6 +776,8 @@ function App() {
 
           const isFloatRight = titleClasses.includes('float-right');
           const isFloatLeft = titleClasses.includes('float-left');
+          const imageName = src?.split('/').pop()?.toLowerCase();
+          const dimensions = imageName ? blogImageDimensions[imageName] : undefined;
           const imageLayoutClass = isFloatRight
             ? 'blog-image--float-right'
             : isFloatLeft
@@ -790,8 +789,11 @@ function App() {
               {...props}
               src={src}
               alt={props.alt || ''}
-              loading="eager"
-              decoding="sync"
+              width={dimensions?.width}
+              height={dimensions?.height}
+              loading="lazy"
+              fetchPriority="low"
+              decoding="async"
               className={`blog-image ${imageLayoutClass} rounded-3xl border border-white/10 shadow-xl`}
             />
           );
@@ -824,7 +826,7 @@ function App() {
     >
       {text}
     </ReactMarkdown>
-  );
+  };
 
   const sponsors = [
     {
@@ -1072,8 +1074,13 @@ function App() {
                 <h1 className="order-last md:order-none w-full min-w-0 text-4xl font-bold text-gold mb-4 flex-1">{selectedBlog?.title}</h1>
                 {selectedBlog?.file.includes('maxwellBlog') && (
                   <img
-                    src={`${import.meta.env.BASE_URL}Resources/Blogs/maxwellLogo3.png`}
+                    src={`${import.meta.env.BASE_URL}Resources/Blogs/Maxwell/maxwellLogo3.png`}
                     alt="Maxwell Energy Systems"
+                    width={352}
+                    height={106}
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
                     className="order-first md:order-none self-center md:self-auto w-[160px] md:w-[200px] max-w-full h-auto object-contain flex-shrink-0"
                   />
                 )}
@@ -1101,7 +1108,13 @@ function App() {
               >
                 <ChevronRight size={32} />
               </button>
-              {heroSlides.map((slide, index) => (
+              {heroSlides.map((slide, index) => {
+            const previousSlide = currentSlide === 0 ? heroSlides.length - 1 : currentSlide - 1;
+            const shouldLoadImage = index === currentSlide || index === previousSlide || index === (currentSlide + 1) % heroSlides.length;
+                const desktopImage = slide.image.replace(/ /g, '%20');
+                const mobileImage = slide.mobileImage.replace(/ /g, '%20');
+
+            return (
             <div
               key={index}
               onClick={slide.action}
@@ -1110,11 +1123,18 @@ function App() {
               }`}
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
-              <img
-                src={slide.image}
-                alt={slide.title}
-                className="w-full h-full object-cover sm:w-full sm:h-auto"
-              />
+              {shouldLoadImage && (
+                <img
+                  src={slide.image}
+                  srcSet={`${mobileImage} 960w, ${desktopImage} 1920w`}
+                  sizes="100vw"
+                  alt={slide.title}
+                  loading={index === currentSlide ? 'eager' : 'lazy'}
+                  fetchPriority={index === currentSlide ? 'high' : 'low'}
+                  decoding="async"
+                  className="w-full h-full object-cover sm:w-full sm:h-auto"
+                />
+              )}
 
                   <div className="absolute inset-0 z-20 flex items-center justify-center">
                     <div className="text-center px-4">
@@ -1144,8 +1164,9 @@ function App() {
                       </motion.p>
                     </div>
                   </div>
-                </div>
-              ))}
+                    </div>
+                  );
+                  })}
             </div>
           </section>
 
@@ -1161,8 +1182,10 @@ function App() {
                   transition={{ duration: 0.5 }}
                 >
                   <img
-                    src="./Resources/Home/cover.jpg"
+                    src="./Resources/Home/cover-optimized.jpg"
                     alt="Team working"
+                    loading="lazy"
+                    decoding="async"
                     className="rounded-lg shadow-xl w-128"
                   />
                 </motion.div>
@@ -1326,6 +1349,8 @@ function App() {
                     <img
                       src={car.image}
                       alt={car.name}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-[300px] object-cover transition-transform group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent">
@@ -1417,6 +1442,8 @@ function App() {
                         <img 
                           src={sponsor.logo}
                           alt={sponsor.name}
+                          loading="lazy"
+                          decoding="async"
                           className="w-auto h-auto max-w-full max-h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity"
                         />
                       </div>
@@ -1587,6 +1614,8 @@ function App() {
                     key={index}
                     src={image}
                     alt={`Achievement ${index + 1}`}
+                    loading="lazy"
+                    decoding="async"
                     className="rounded-lg w-full h-48 object-cover cursor-pointer transition-transform duration-200 hover:scale-105"
                     onClick={() => setSelectedImage(image)}
                   />
@@ -1651,6 +1680,8 @@ function App() {
                     key={index}
                     src={image}
                     alt={`Car ${index + 1}`}
+                    loading="lazy"
+                    decoding="async"
                     className="rounded-lg w-full h-48 object-cover"
                   />
                 ))}
@@ -1700,6 +1731,8 @@ function App() {
               <img
                 src={selectedSponsor.logo}
                 alt={selectedSponsor.name}
+                loading="eager"
+                decoding="async"
                 className="w-auto h-auto max-w-80% max-h-[250px] object-contain opacity-100 transition-opacity"
               />
             </div>

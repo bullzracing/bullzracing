@@ -20,7 +20,7 @@ This is where Maxwell Energy Systems has stepped in.
 
 ### **Technology That Fits Our Ambition** ###
 
-![Maxwell BMS](Resources/Blogs/maxwellBMS1.jpg "class=float-right !w-[600px] !max-w-none !mx-0 !my-2 ml-8 mb-4")
+![Maxwell BMS](Resources/Blogs/Maxwell/maxwellBMS1-optimized.jpg "class=float-right !w-[600px] !max-w-none !mx-0 !my-2 ml-8 mb-4")
 
 As part of our EV development, Maxwell Energy Systems generously
 sponsored us with their FSLT Legacy BMS along with its wiring harness.
@@ -50,7 +50,7 @@ particularly convenient.
 
 ### **Making Complex Data Accessible** ###
 
-![Maxwell ION Lens](Resources/Blogs/maxwellApp.JPG "class=float-left !w-[1000px] !max-w-none !mx-0 !my-2 mr-8 mb-4")
+![Maxwell ION Lens](Resources/Blogs/Maxwell/maxwellApp-optimized.jpg "class=float-left !w-[1000px] !max-w-none !mx-0 !my-2 mr-8 mb-4")
 
 Through ION Lens, the parameters measured by the BMS can be monitored
 directly from an Android device. Instead of requiring a complicated
@@ -70,7 +70,7 @@ FSLT Legacy BMS such a valuable part of our EV development process.
 
 ### **More Than Just a Sponsorship** ###
 
-![Maxwell Meeting](Resources/Blogs/maxwellMeeting1.jpg "class=float-right !w-[1000px] !max-w-none !mx-0 !my-2 ml-8 mb-4")
+![Maxwell Meeting](Resources/Blogs/Maxwell/maxwellMeeting1-optimized.jpg "class=float-right !w-[1000px] !max-w-none !mx-0 !my-2 ml-8 mb-4")
 
 However, what has made our association with Maxwell Energy Systems
 particularly meaningful has been the support that has accompanied the
@@ -96,7 +96,7 @@ learning curve.
 
 ### **Building an EV, Building Knowledge** ###
 
-![Maxwell Learning](Resources/Blogs/maxwellLearn.png "class=float-left !w-[1000px] !max-w-none !mx-0 !my-2 mr-8 mb-4")
+![Maxwell Learning](Resources/Blogs/Maxwell/maxwellLearn-optimized.jpg "class=float-left !w-[1000px] !max-w-none !mx-0 !my-2 mr-8 mb-4")
 
 Our journey towards SUPRA SAEIndia 2027 has only just begun. There is
 still a tremendous amount to learn, test, validate and build before our
