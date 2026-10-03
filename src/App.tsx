@@ -9,9 +9,19 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { blogs } from './blogData';
+import RecruitmentPage from './RecruitmentPage';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+
+function getInitialPage(): 'home' | 'join-us' {
+  if (new URLSearchParams(window.location.search).get('spa-route') === 'join-us') {
+    window.history.replaceState({}, '', '/join-us');
+    return 'join-us';
+  }
+
+  return window.location.pathname.replace(/\/+$/, '') === '/join-us' ? 'join-us' : 'home';
+}
 
 function Modal({ isOpen, onClose, children }: { isOpen: boolean; onClose: () => void; children: React.ReactNode }) {
   if (!isOpen) return null;
@@ -48,7 +58,7 @@ function App() {
   const [blogText, setBlogText] = useState<string>('');
   const [isBlogLoading, setIsBlogLoading] = useState(false);
   const [blogError, setBlogError] = useState<string | null>(null);
-  const [page, setPage] = useState<'home' | 'blog'>('home');
+  const [page, setPage] = useState<'home' | 'blog' | 'join-us'>(getInitialPage);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedBlog, setSelectedBlog] = useState<{title: string; file: string; author: string; date: string;} | null>(null);
   const prevRef = useRef<HTMLButtonElement>(null);
@@ -60,12 +70,30 @@ function App() {
     window.location.hash = `#blog/${blog.id}`;
   };
 
+  const openRecruitmentPage = () => {
+    setSelectedInsight(null);
+    setSelectedBlog(null);
+    window.history.pushState({}, '', '/join-us');
+    setPage('join-us');
+    window.scrollTo(0, 0);
+  };
+
   const closeBlogPage = () => {
     setTimeout(() => {
       window.location.hash = '';
     }, 300);
   };
   const heroSlides = [
+    {
+      image: `${import.meta.env.BASE_URL}Resources/Recruitment/recruitmentApplyNow.jpeg`,
+      mobileImage: `${import.meta.env.BASE_URL}Resources/Recruitment/recruitmentHeroMobile.jpeg`,
+      title: 'Join Us',
+      subtitle: 'Bullz Racing is recruiting for 2026-27!',
+      desc: 'Explore the subsystems behind Bullz Racing - click to apply',
+      action: () => {
+        openRecruitmentPage();
+      }
+    },
     {
       image: `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach2-hero.jpg`,
       mobileImage: `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach2-hero-mobile.jpg`,
@@ -382,7 +410,7 @@ function App() {
     {
       title: 'Updates',
       description: 'Stay informed regarding all team announcements and club acitivities from Bullz Racing.',
-      content: 'Coming soon!',
+      content: '',
     },
   ];
 
@@ -612,6 +640,12 @@ function App() {
       setTimeout(() => {
         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
       }, 100);
+    } else if (page === 'join-us') {
+      window.history.pushState({}, '', '/');
+      setPage('home');
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
     } else {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     }
@@ -640,6 +674,13 @@ function App() {
 
   useEffect(() => {
     const updatePage = () => {
+      if (window.location.pathname.replace(/\/+$/, '') === '/join-us') {
+        setSelectedBlog(null);
+        setSelectedInsight(null);
+        setPage('join-us');
+        return;
+      }
+
       const hash = window.location.hash;
       if (hash.startsWith('#blog/')) {
         const blogId = hash.replace('#blog/', '');
@@ -664,8 +705,10 @@ function App() {
     };
     updatePage();
     window.addEventListener('hashchange', updatePage);
+    window.addEventListener('popstate', updatePage);
     return () => {
       window.removeEventListener('hashchange', updatePage);
+      window.removeEventListener('popstate', updatePage);
     };
   }, []);
 
@@ -990,11 +1033,16 @@ function App() {
                 onClick={(e) => {
                   e.preventDefault();
 
-                  // If you're on blog page, switch back
-                  window.location.hash = '';
+                  if (page === 'join-us') {
+                    window.history.pushState({}, '', '/');
+                    setPage('home');
+                  } else {
+                    window.location.hash = '';
+                  }
 
-                  // Scroll to top/home
-                  document.getElementById("home")?.scrollIntoView({ behavior: "smooth" });
+                  setTimeout(() => {
+                    document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
                 }}
               >
                 <img
@@ -1046,7 +1094,13 @@ function App() {
               <a
                 key={item.id}
                 href={`#${item.id}`}
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => {
+                  setIsMenuOpen(false);
+                  if (page !== 'home') {
+                    e.preventDefault();
+                    handleNavClick(item.id);
+                  }
+                }}
                 className={`flex-shrink-0 text-sm font-medium transition-colors whitespace-nowrap ${activeSection === item.id
                   ? 'text-gold'
                   : 'text-gray-300 hover:text-gold'
@@ -1060,7 +1114,9 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      {page === 'blog' ? (
+      {page === 'join-us' ? (
+        <RecruitmentPage />
+      ) : page === 'blog' ? (
         <section className="min-h-screen w-full py-20 bg-dark">
           <div className="w-full min-w-0 max-w-7xl mx-auto px-2">
             <button
@@ -1124,16 +1180,17 @@ function App() {
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
               {shouldLoadImage && (
-                <img
-                  src={slide.image}
-                  srcSet={`${mobileImage} 960w, ${desktopImage} 1920w`}
-                  sizes="100vw"
-                  alt={slide.title}
-                  loading={index === currentSlide ? 'eager' : 'lazy'}
-                  fetchPriority={index === currentSlide ? 'high' : 'low'}
-                  decoding="async"
-                  className="w-full h-full object-cover sm:w-full sm:h-auto"
-                />
+                <picture className="block h-full w-full">
+                  <source media="(max-width: 767px)" srcSet={mobileImage} />
+                  <img
+                    src={desktopImage}
+                    alt={slide.title}
+                    loading={index === currentSlide ? 'eager' : 'lazy'}
+                    fetchPriority={index === currentSlide ? 'high' : 'low'}
+                    decoding="async"
+                    className="w-full h-full object-cover sm:w-full sm:h-auto"
+                  />
+                </picture>
               )}
 
                   <div className="absolute inset-0 z-20 flex items-center justify-center">
@@ -1291,6 +1348,20 @@ function App() {
                     </a>
                   ))}
                 </div>
+              ) : selectedInsight === 2 ? (
+                <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+                  <a
+                    href="/join-us"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openRecruitmentPage();
+                    }}
+                    className="block rounded-3xl border border-white/10 bg-black/50 p-5 transition hover:border-gold hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >
+                    <h4 className="text-2xl font-semibold text-gold">Join Us</h4>
+                    <p className="text-silver mt-2">Explore the subsystems behind Bullz Racing - click to apply</p>
+                  </a>
+                </div>
               ) : (
                 <p className="text-silver text-lg leading-relaxed">
                   {insights[selectedInsight].content || 'Content will be available here soon.'}
@@ -1301,6 +1372,8 @@ function App() {
         )}
       </AnimatePresence>
 
+      {page !== 'join-us' && (
+        <>
       {/* Achievements Section */}
       <section id="achievements" className="py-20 bg-dark-secondary">
         <div className="max-w-7xl mx-auto px-4">
@@ -1476,7 +1549,8 @@ function App() {
             </div>
           </div>
         </section>
-
+        </>
+      )}
 
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-dark">
