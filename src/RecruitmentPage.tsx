@@ -46,7 +46,7 @@ const subsystems: RecruitmentSubsystem[] = [
   {
     title: 'EV Powertrain',
     description: 'Building Bullz Racing’s first EV for the upcoming season, taking on the challenge of developing the systems that power the car and keep it safe on track.',
-    image: '/Resources/Recruitment/evPowertrain.JPG',
+    image: '/Resources/Recruitment/evPowertrain1.jpeg',
     alt: 'EV Powertrain subsystem',
     subsections: [
       {
