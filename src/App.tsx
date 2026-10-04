@@ -95,8 +95,8 @@ function App() {
       }
     },
     {
-      image: `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach2-hero.jpg`,
-      mobileImage: `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach2-hero-mobile.jpg`,
+      image: `${import.meta.env.BASE_URL}Resources/Achievements/supra26Hero.jpeg`,
+      mobileImage: `${import.meta.env.BASE_URL}Resources/Achievements/supra26Hero.jpeg`,
       title: '7th Overall',
       subtitle: 'Supra SAEIndia 2026',
       desc: 'Buddh International Circuit, Noida',
@@ -272,7 +272,7 @@ function App() {
       ],
       images: [
         `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach1-optimized.jpg`,
-        `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach2a.jpeg`,
+        `${import.meta.env.BASE_URL}Resources/Achievements/supra26ach2.jpeg`,
       ],
     },
     {

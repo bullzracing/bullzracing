@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
-const RECRUITMENT_FORM_URL = 'GOOGLE_FORM_URL_PLACEHOLDER';
+const RECRUITMENT_FORM_URL = 'https://forms.gle/7GS75qEVoofR1ZgH6';
 
 interface RecruitmentSubsection {
   title: string;
