@@ -1053,7 +1053,17 @@ function App() {
               </a>
             </div>
 
-            <div className="md:hidden">
+            <div className="flex items-center gap-2 md:hidden">
+              <a
+                href="/join-us"
+                onClick={(e) => {
+                  e.preventDefault();
+                  openRecruitmentPage();
+                }}
+                className="inline-flex items-center justify-center rounded-full bg-gold px-3 py-1.5 text-xs font-semibold text-white transition duration-200 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                Join Us
+              </a>
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="text-gray-300 hover:text-gold"
@@ -1062,7 +1072,7 @@ function App() {
               </button>
             </div>
 
-            <div className="hidden md:flex md:items-center md:space-x-8">
+            <div className="hidden md:flex md:items-center md:space-x-4 lg:space-x-8">
               {navItems.map((item) => (
                 <a
                   key={item.id}
@@ -1079,6 +1089,16 @@ function App() {
                   {item.label}
                 </a>
               ))}
+              <a
+                href="/join-us"
+                onClick={(e) => {
+                  e.preventDefault();
+                  openRecruitmentPage();
+                }}
+                className="inline-flex items-center justify-center rounded-full bg-gold px-4 py-2 text-sm font-semibold text-white transition duration-200 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                Join Us
+              </a>
             </div>
           </div>
         </div>
