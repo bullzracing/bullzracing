@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import OptimizedImage, { createAvifSource } from './OptimizedImage';
 
 const RECRUITMENT_FORM_URL = 'https://forms.gle/7GS75qEVoofR1ZgH6';
 
@@ -81,6 +82,9 @@ const subsystems: RecruitmentSubsystem[] = [
 
 function RecruitmentImage({ src, alt, hero = false }: { src: string; alt: string; hero?: boolean }) {
   const [hasError, setHasError] = useState(false);
+  const imageSizes = hero
+    ? '100vw'
+    : '(max-width: 767px) calc(100vw - 2rem), 616px';
 
   return (
     <div
@@ -95,10 +99,13 @@ function RecruitmentImage({ src, alt, hero = false }: { src: string; alt: string
           </span>
         </div>
       ) : (
-        <img
+        <OptimizedImage
+          pictureClassName="block h-full w-full"
+          sources={[createAvifSource(src, imageSizes, hero ? [1280, 1920] : [640, 1280])]}
           src={src}
           alt={alt}
           loading={hero ? 'eager' : 'lazy'}
+          fetchpriority={hero ? 'high' : undefined}
           decoding="async"
           onError={() => setHasError(true)}
           className="h-full w-full object-cover"
@@ -159,11 +166,18 @@ export default function RecruitmentPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" aria-hidden="true" />
         <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center gap-6">
-          <img
+          <OptimizedImage
+            pictureClassName="block"
+            sources={[createAvifSource(
+              '/Resources/Logos/Bullz Logo_Best.png',
+              '(min-width: 768px) 144px, 112px',
+              [256, 512],
+            )]}
             src="/Resources/Logos/Bullz Logo_Best.png"
             alt="Bullz Racing"
             width={256}
             height={265}
+            loading="eager"
             decoding="async"
             className="h-28 w-auto object-contain md:h-36"
           />

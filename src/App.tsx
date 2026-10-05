@@ -9,6 +9,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { blogs } from './blogData';
+import OptimizedImage, { createAvifSource } from './OptimizedImage';
 import RecruitmentPage from './RecruitmentPage';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -827,8 +828,18 @@ function App() {
               ? 'blog-image--float-left'
               : 'blog-image--standalone';
 
+          const imageSources = src?.includes('Resources/Blogs/')
+            ? [createAvifSource(
+                src,
+                '(max-width: 767px) calc(100vw - 2rem), 600px',
+                [640, 1280],
+              )]
+            : [];
+
           return (
-            <img
+            <OptimizedImage
+              pictureClassName="contents"
+              sources={imageSources}
               {...props}
               src={src}
               alt={props.alt || ''}
@@ -1189,6 +1200,13 @@ function App() {
             const shouldLoadImage = index === currentSlide || index === previousSlide || index === (currentSlide + 1) % heroSlides.length;
                 const desktopImage = slide.image.replace(/ /g, '%20');
                 const mobileImage = slide.mobileImage.replace(/ /g, '%20');
+            const isSupraHero = slide.image.endsWith('/supra26Hero.jpeg');
+            const mobileWidths = slide.mobileImage === slide.image
+              ? (isSupraHero ? [640, 960] : [960, 1280])
+              : slide.mobileImage.endsWith('/recruitmentHeroMobile.jpeg')
+                ? [960, 1280]
+                : [960];
+            const desktopWidths = isSupraHero ? [960, 1280] : [1280, 1920];
 
             return (
             <div
@@ -1200,17 +1218,26 @@ function App() {
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
               {shouldLoadImage && (
-                <picture className="block h-full w-full">
-                  <source media="(max-width: 767px)" srcSet={mobileImage} />
-                  <img
-                    src={desktopImage}
-                    alt={slide.title}
-                    loading={index === currentSlide ? 'eager' : 'lazy'}
-                    fetchPriority={index === currentSlide ? 'high' : 'low'}
-                    decoding="async"
-                    className="w-full h-full object-cover sm:w-full sm:h-auto"
-                  />
-                </picture>
+                <OptimizedImage
+                  pictureClassName="block h-full w-full"
+                  sources={[
+                    {
+                      ...createAvifSource(slide.mobileImage, '100vw', mobileWidths),
+                      media: '(max-width: 767px)',
+                    },
+                    {
+                      ...createAvifSource(slide.image, '100vw', desktopWidths),
+                      media: '(min-width: 768px)',
+                    },
+                    { media: '(max-width: 767px)', srcSet: mobileImage },
+                  ]}
+                  src={desktopImage}
+                  alt={slide.title}
+                  loading={index === currentSlide ? 'eager' : 'lazy'}
+                  fetchpriority={index === currentSlide ? 'high' : 'low'}
+                  decoding="async"
+                  className="w-full h-full object-cover sm:w-full sm:h-auto"
+                />
               )}
 
                   <div className="absolute inset-0 z-20 flex items-center justify-center">
@@ -1258,9 +1285,17 @@ function App() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
                 >
-                  <img
+                  <OptimizedImage
+                    pictureClassName="block"
+                    sources={[createAvifSource(
+                      './Resources/Home/cover-optimized.jpg',
+                      '512px',
+                      [960, 1280],
+                    )]}
                     src="./Resources/Home/cover-optimized.jpg"
                     alt="Team working"
+                    width={1920}
+                    height={1032}
                     loading="lazy"
                     decoding="async"
                     className="rounded-lg shadow-xl w-128"
@@ -1439,7 +1474,14 @@ function App() {
                   onClick={() => setSelectedCar(index)}
                 >
                   <div className="relative overflow-hidden rounded-lg">
-                    <img
+                    <OptimizedImage
+                      pictureClassName="block w-full"
+                      sources={[createAvifSource(
+                        car.image,
+                        '(max-width: 767px) calc(100vw - 2rem), 400px',
+                        [640, 960],
+                        960,
+                      )]}
                       src={car.image}
                       alt={car.name}
                       loading="lazy"
@@ -1578,9 +1620,18 @@ function App() {
           <h2 className="text-4xl font-bold mb-12 text-center text-gold">Contact Us</h2>
           <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 items-top">
             <div className="flex justify-center">
-              <img
+              <OptimizedImage
+                pictureClassName="block"
+                sources={[createAvifSource(
+                  './Resources/Logos/Bullz Logo_Best.png',
+                  '288px',
+                  [256, 512],
+                )]}
                 src="./Resources/Logos/Bullz Logo_Best.png"
                 alt="BULLZ RACING"
+                width={3896}
+                height={4034}
+                loading="lazy"
                 className="h-72 w-auto object-contain"
               />
             </div>
@@ -1704,8 +1755,17 @@ function App() {
               {/* Images */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                 {achievements[selectedAchievement].images.map((image, index) => (
-                  <img
+                  <OptimizedImage
                     key={index}
+                    pictureClassName="block w-full"
+                    sources={[createAvifSource(
+                      image,
+                      '(max-width: 639px) calc(100vw - 4rem), 400px',
+                      image.endsWith('/supra26ach2.jpeg')
+                        ? [640, 960, 1280, 1920]
+                        : [640, 960],
+                      image.endsWith('/supra26ach2.jpeg') ? undefined : 960,
+                    )]}
                     src={image}
                     alt={`Achievement ${index + 1}`}
                     loading="lazy"
@@ -1725,15 +1785,27 @@ function App() {
           className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50 p-4"
           onClick={() => setSelectedImage(null)}
         >
-          <motion.img
-            src={selectedImage}
-            alt="Enlarged"
-            className="w-auto max-w-[90vw] max-h-[85vh] rounded-lg shadow-lg"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          />
+          <picture className="contents">
+            <source
+              {...createAvifSource(
+                selectedImage,
+                '90vw',
+                selectedImage.endsWith('/supra26ach2.jpeg')
+                  ? [640, 960, 1280, 1920]
+                  : [640, 960],
+                selectedImage.endsWith('/supra26ach2.jpeg') ? undefined : 960,
+              )}
+            />
+            <motion.img
+              src={selectedImage}
+              alt="Enlarged"
+              className="w-auto max-w-[90vw] max-h-[85vh] rounded-lg shadow-lg"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            />
+          </picture>
         </div>
       )}
 
@@ -1770,8 +1842,15 @@ function App() {
               {/* Images */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {cars[selectedCar].images.map((image, index) => (
-                  <img
+                  <OptimizedImage
                     key={index}
+                    pictureClassName="block w-full"
+                    sources={[createAvifSource(
+                      image,
+                      '(max-width: 639px) calc(100vw - 4rem), 400px',
+                      [640, 960],
+                      960,
+                    )]}
                     src={image}
                     alt={`Car ${index + 1}`}
                     loading="lazy"
