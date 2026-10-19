@@ -11,17 +11,24 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { blogs } from './blogData';
 import OptimizedImage, { createAvifSource } from './OptimizedImage';
 import RecruitmentPage from './RecruitmentPage';
+import ResultsPage from './ResultsPage';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-function getInitialPage(): 'home' | 'join-us' {
-  if (new URLSearchParams(window.location.search).get('spa-route') === 'join-us') {
-    window.history.replaceState({}, '', '/join-us');
-    return 'join-us';
+function getInitialPage(): 'home' | 'blog' | 'join-us' | 'results' {
+  const spaRoute = new URLSearchParams(window.location.search).get('spa-route');
+  if (spaRoute === 'join-us' || spaRoute === 'results') {
+    window.history.replaceState({}, '', `/${spaRoute}`);
+    return spaRoute;
   }
 
-  return window.location.pathname.replace(/\/+$/, '') === '/join-us' ? 'join-us' : 'home';
+  const pathname = window.location.pathname.replace(/\/+$/, '');
+  return pathname === '/join-us'
+    ? 'join-us'
+    : pathname === '/results'
+      ? 'results'
+      : 'home';
 }
 
 function Modal({ isOpen, onClose, children }: { isOpen: boolean; onClose: () => void; children: React.ReactNode }) {
@@ -59,7 +66,7 @@ function App() {
   const [blogText, setBlogText] = useState<string>('');
   const [isBlogLoading, setIsBlogLoading] = useState(false);
   const [blogError, setBlogError] = useState<string | null>(null);
-  const [page, setPage] = useState<'home' | 'blog' | 'join-us'>(getInitialPage);
+  const [page, setPage] = useState<'home' | 'blog' | 'join-us' | 'results'>(getInitialPage);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedBlog, setSelectedBlog] = useState<{title: string; file: string; author: string; date: string;} | null>(null);
   const prevRef = useRef<HTMLButtonElement>(null);
@@ -76,6 +83,18 @@ function App() {
     setSelectedBlog(null);
     window.history.pushState({}, '', '/join-us');
     setPage('join-us');
+    setActiveSection('join-us');
+    setIsMenuOpen(false);
+    window.scrollTo(0, 0);
+  };
+
+  const openResultsPage = () => {
+    setSelectedInsight(null);
+    setSelectedBlog(null);
+    window.history.pushState({}, '', '/results');
+    setPage('results');
+    setActiveSection('results');
+    setIsMenuOpen(false);
     window.scrollTo(0, 0);
   };
 
@@ -85,16 +104,6 @@ function App() {
     }, 300);
   };
   const heroSlides = [
-    {
-      image: `${import.meta.env.BASE_URL}Resources/Recruitment/recruitmentApplyNow.jpeg`,
-      mobileImage: `${import.meta.env.BASE_URL}Resources/Recruitment/recruitmentHeroMobile.jpeg`,
-      title: 'Join Us',
-      subtitle: 'Bullz Racing is recruiting for 2026-27!',
-      desc: 'Explore the subsystems behind Bullz Racing - click to apply',
-      action: () => {
-        openRecruitmentPage();
-      }
-    },
     {
       image: `${import.meta.env.BASE_URL}Resources/Achievements/supra26Hero.jpeg`,
       mobileImage: `${import.meta.env.BASE_URL}Resources/Achievements/supra26Hero.jpeg`,
@@ -634,14 +643,16 @@ function App() {
 
   const handleNavClick = (id: string) => {
     // If on blog page, switch back first
-    if (page === 'blog') {
+    if (page === 'results' && id === 'contact') {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    } else if (page === 'blog') {
       window.location.hash = '';
 
       // Wait for DOM to render home page
       setTimeout(() => {
         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
       }, 100);
-    } else if (page === 'join-us') {
+    } else if (page === 'join-us' || page === 'results') {
       window.history.pushState({}, '', '/');
       setPage('home');
       setTimeout(() => {
@@ -649,6 +660,16 @@ function App() {
       }, 100);
     } else {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleNavItemClick = (id: string) => {
+    if (id === 'join-us') {
+      openRecruitmentPage();
+    } else if (id === 'results') {
+      openResultsPage();
+    } else {
+      handleNavClick(id);
     }
   };
   useEffect(() => {
@@ -675,10 +696,13 @@ function App() {
 
   useEffect(() => {
     const updatePage = () => {
-      if (window.location.pathname.replace(/\/+$/, '') === '/join-us') {
+      const pathname = window.location.pathname.replace(/\/+$/, '');
+      if (pathname === '/join-us' || pathname === '/results') {
         setSelectedBlog(null);
         setSelectedInsight(null);
-        setPage('join-us');
+        const nextPage = pathname === '/join-us' ? 'join-us' : 'results';
+        setPage(nextPage);
+        setActiveSection(nextPage);
         return;
       }
 
@@ -1029,6 +1053,7 @@ function App() {
     { id: 'achievements', label: 'Achievements', icon: Trophy },
     { id: 'cars', label: 'Our Cars', icon: Building2 },
     { id: 'sponsors', label: 'Sponsors', icon: Building2 },
+    { id: 'join-us', label: 'Join Us', icon: null },
     { id: 'contact', label: 'Contact Us', icon: MessageSquare },
   ];
 
@@ -1044,7 +1069,7 @@ function App() {
                 onClick={(e) => {
                   e.preventDefault();
 
-                  if (page === 'join-us') {
+                  if (page === 'join-us' || page === 'results') {
                     window.history.pushState({}, '', '/');
                     setPage('home');
                   } else {
@@ -1065,16 +1090,6 @@ function App() {
             </div>
 
             <div className="flex items-center gap-2 md:hidden">
-              <a
-                href="/join-us"
-                onClick={(e) => {
-                  e.preventDefault();
-                  openRecruitmentPage();
-                }}
-                className="inline-flex items-center justify-center rounded-full bg-gold px-3 py-1.5 text-xs font-semibold text-white transition duration-200 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >
-                Join Us
-              </a>
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="text-gray-300 hover:text-gold"
@@ -1087,10 +1102,10 @@ function App() {
               {navItems.map((item) => (
                 <a
                   key={item.id}
-                  href={`#${item.id}`}
+                  href={item.id === 'results' || item.id === 'join-us' ? `/${item.id}` : `#${item.id}`}
                   onClick={(e) => {
                     e.preventDefault();
-                    handleNavClick(item.id);
+                    handleNavItemClick(item.id);
                   }}
                   className={`text-sm font-medium transition-colors ${activeSection === item.id
                     ? 'text-gold drop-shadow-[0_0_8px_rgba(0,0,0,1)]'
@@ -1100,16 +1115,6 @@ function App() {
                   {item.label}
                 </a>
               ))}
-              <a
-                href="/join-us"
-                onClick={(e) => {
-                  e.preventDefault();
-                  openRecruitmentPage();
-                }}
-                className="inline-flex items-center justify-center rounded-full bg-gold px-4 py-2 text-sm font-semibold text-white transition duration-200 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >
-                Join Us
-              </a>
             </div>
           </div>
         </div>
@@ -1124,13 +1129,11 @@ function App() {
             {navItems.map((item) => (
               <a
                 key={item.id}
-                href={`#${item.id}`}
+                href={item.id === 'results' || item.id === 'join-us' ? `/${item.id}` : `#${item.id}`}
                 onClick={(e) => {
+                  e.preventDefault();
                   setIsMenuOpen(false);
-                  if (page !== 'home') {
-                    e.preventDefault();
-                    handleNavClick(item.id);
-                  }
+                  handleNavItemClick(item.id);
                 }}
                 className={`flex-shrink-0 text-sm font-medium transition-colors whitespace-nowrap ${activeSection === item.id
                   ? 'text-gold'
@@ -1146,7 +1149,9 @@ function App() {
 
       {/* Hero Section */}
       {page === 'join-us' ? (
-        <RecruitmentPage />
+        <RecruitmentPage onResultsClick={openResultsPage} />
+      ) : page === 'results' ? (
+        <ResultsPage />
       ) : page === 'blog' ? (
         <section className="min-h-screen w-full py-20 bg-dark">
           <div className="w-full min-w-0 max-w-7xl mx-auto px-2">
@@ -1427,7 +1432,7 @@ function App() {
         )}
       </AnimatePresence>
 
-      {page !== 'join-us' && (
+      {page !== 'join-us' && page !== 'results' && (
         <>
       {/* Achievements Section */}
       <section id="achievements" className="py-20 bg-dark-secondary">

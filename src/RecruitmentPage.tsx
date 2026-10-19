@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import OptimizedImage, { createAvifSource } from './OptimizedImage';
 
-const RECRUITMENT_FORM_URL = 'https://forms.gle/7GS75qEVoofR1ZgH6';
-
 interface RecruitmentSubsection {
   title: string;
   description: string;
@@ -155,7 +153,7 @@ function SubsystemSection({ subsystem, index }: { subsystem: RecruitmentSubsyste
   );
 }
 
-export default function RecruitmentPage() {
+export default function RecruitmentPage({ onResultsClick }: { onResultsClick: () => void }) {
   return (
     <main>
       <section className="relative isolate flex min-h-[calc(100svh-4rem)] items-center justify-center overflow-hidden bg-dark px-4 pb-12 pt-24 text-center">
@@ -182,18 +180,24 @@ export default function RecruitmentPage() {
             className="h-28 w-auto object-contain md:h-36"
           />
           <h1 className="text-4xl font-bold leading-tight text-gold drop-shadow-[4px_4px_10px_rgba(0,0,0,1)] sm:text-5xl md:text-6xl">
-            <span className="block sm:inline">Bullz Racing is Recruiting! </span>
-            <span className="block sm:inline"></span>
-            <span className="block"></span>
+            2026-27 Recruitments are Closed!
           </h1>
           <a
-            href={RECRUITMENT_FORM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/results"
+            onClick={(event) => {
+              event.preventDefault();
+              onResultsClick();
+            }}
             className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/20 bg-black/50 px-8 py-3 font-semibold text-gold transition-colors hover:bg-black/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           >
-            APPLY NOW
+            RESULTS
           </a>
+          <p className="text-lg text-white">
+            For any enquiries e-mail us at{' '}
+            <a href="mailto:bullzracing@bmsce.ac.in" className="text-white">
+              bullzracing@bmsce.ac.in
+            </a>
+          </p>
         </div>
       </section>
       {subsystems.map((subsystem, index) => (

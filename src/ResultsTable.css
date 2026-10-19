@@ -1,0 +1,5 @@
+@media (hover: hover) {
+  .results-table-row:hover {
+    @apply bg-white/10;
+  }
+}
