@@ -6,8 +6,8 @@
     <title>Bullz Racing</title>
     <script>
       const requestedPath = window.location.pathname.replace(/\/+$/, '');
-      if (requestedPath === '/join-us') {
-        window.location.replace('/?spa-route=join-us');
+      if (requestedPath === '/join-us' || requestedPath === '/results') {
+        window.location.replace(`/?spa-route=${requestedPath.slice(1)}`);
       } else {
         window.location.replace('/');
       }
