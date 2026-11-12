@@ -13,7 +13,7 @@ export default function ResultsPage() {
     <main className="min-h-screen w-full bg-dark py-20">
       <div className="mx-auto max-w-7xl px-4">
         <h1 className="text-center text-4xl font-bold text-gold">
-          Recruitment Results 2026-27
+          RECRUITMENT RESULTS 2026-27
         </h1>
         <div className="mx-auto mt-2.5 mb-3 h-0.5 w-11 bg-gold" aria-hidden="true" />
         <p className="mb-5 text-center text-base leading-relaxed text-white">

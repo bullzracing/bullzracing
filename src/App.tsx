@@ -12,13 +12,14 @@ import { blogs } from './blogData';
 import OptimizedImage, { createAvifSource } from './OptimizedImage';
 import RecruitmentPage from './RecruitmentPage';
 import ResultsPage from './ResultsPage';
+import OurTeamPage from './OurTeamPage';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-function getInitialPage(): 'home' | 'blog' | 'join-us' | 'results' {
+function getInitialPage(): 'home' | 'blog' | 'join-us' | 'results' | 'our-team' {
   const spaRoute = new URLSearchParams(window.location.search).get('spa-route');
-  if (spaRoute === 'join-us' || spaRoute === 'results') {
+  if (spaRoute === 'join-us' || spaRoute === 'results' || spaRoute === 'our-team') {
     window.history.replaceState({}, '', `/${spaRoute}`);
     return spaRoute;
   }
@@ -28,7 +29,9 @@ function getInitialPage(): 'home' | 'blog' | 'join-us' | 'results' {
     ? 'join-us'
     : pathname === '/results'
       ? 'results'
-      : 'home';
+      : pathname === '/our-team'
+        ? 'our-team'
+        : 'home';
 }
 
 function Modal({ isOpen, onClose, children }: { isOpen: boolean; onClose: () => void; children: React.ReactNode }) {
@@ -66,7 +69,7 @@ function App() {
   const [blogText, setBlogText] = useState<string>('');
   const [isBlogLoading, setIsBlogLoading] = useState(false);
   const [blogError, setBlogError] = useState<string | null>(null);
-  const [page, setPage] = useState<'home' | 'blog' | 'join-us' | 'results'>(getInitialPage);
+  const [page, setPage] = useState<'home' | 'blog' | 'join-us' | 'results' | 'our-team'>(getInitialPage);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedBlog, setSelectedBlog] = useState<{title: string; file: string; author: string; date: string;} | null>(null);
   const prevRef = useRef<HTMLButtonElement>(null);
@@ -94,6 +97,16 @@ function App() {
     window.history.pushState({}, '', '/results');
     setPage('results');
     setActiveSection('results');
+    setIsMenuOpen(false);
+    window.scrollTo(0, 0);
+  };
+
+  const openOurTeamPage = () => {
+    setSelectedInsight(null);
+    setSelectedBlog(null);
+    window.history.pushState({}, '', '/our-team');
+    setPage('our-team');
+    setActiveSection('our-team');
     setIsMenuOpen(false);
     window.scrollTo(0, 0);
   };
@@ -643,7 +656,7 @@ function App() {
 
   const handleNavClick = (id: string) => {
     // If on blog page, switch back first
-    if (page === 'results' && id === 'contact') {
+    if ((page === 'results' || page === 'our-team') && id === 'contact') {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     } else if (page === 'blog') {
       window.location.hash = '';
@@ -652,7 +665,7 @@ function App() {
       setTimeout(() => {
         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
       }, 100);
-    } else if (page === 'join-us' || page === 'results') {
+    } else if (page === 'join-us' || page === 'results' || page === 'our-team') {
       window.history.pushState({}, '', '/');
       setPage('home');
       setTimeout(() => {
@@ -668,6 +681,8 @@ function App() {
       openRecruitmentPage();
     } else if (id === 'results') {
       openResultsPage();
+    } else if (id === 'our-team') {
+      openOurTeamPage();
     } else {
       handleNavClick(id);
     }
@@ -697,10 +712,14 @@ function App() {
   useEffect(() => {
     const updatePage = () => {
       const pathname = window.location.pathname.replace(/\/+$/, '');
-      if (pathname === '/join-us' || pathname === '/results') {
+      if (pathname === '/join-us' || pathname === '/results' || pathname === '/our-team') {
         setSelectedBlog(null);
         setSelectedInsight(null);
-        const nextPage = pathname === '/join-us' ? 'join-us' : 'results';
+        const nextPage = pathname === '/join-us'
+          ? 'join-us'
+          : pathname === '/results'
+            ? 'results'
+            : 'our-team';
         setPage(nextPage);
         setActiveSection(nextPage);
         return;
@@ -1049,6 +1068,7 @@ function App() {
   const navItems = [
     { id: 'home', label: 'Home', icon: null },
     { id: 'about', label: 'About Us', icon: Users },
+    { id: 'our-team', label: 'Our Team', icon: null },
     { id: 'insights', label: 'Insights', icon: MessageSquare },
     { id: 'achievements', label: 'Achievements', icon: Trophy },
     { id: 'cars', label: 'Our Cars', icon: Building2 },
@@ -1058,9 +1078,9 @@ function App() {
   ];
 
   return (
-    <div className="bg-dark min-h-screen text-white">
+    <div className={`bg-dark min-h-screen text-white ${page === 'our-team' ? 'overflow-x-clip' : ''}`}>
       {/* Navigation */}
-      <nav className="fixed w-full bg-black/30 backdrop-blur-md border-b border-white/5 z-50">
+      <nav className="fixed w-full overflow-x-hidden bg-black/30 backdrop-blur-md border-b border-white/5 z-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0">
@@ -1069,7 +1089,7 @@ function App() {
                 onClick={(e) => {
                   e.preventDefault();
 
-                  if (page === 'join-us' || page === 'results') {
+                  if (page === 'join-us' || page === 'results' || page === 'our-team') {
                     window.history.pushState({}, '', '/');
                     setPage('home');
                   } else {
@@ -1089,7 +1109,7 @@ function App() {
               </a>
             </div>
 
-            <div className="flex items-center gap-2 md:hidden">
+            <div className="flex items-center gap-2 lg:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="text-gray-300 hover:text-gold"
@@ -1098,11 +1118,11 @@ function App() {
               </button>
             </div>
 
-            <div className="hidden md:flex md:items-center md:space-x-4 lg:space-x-8">
+            <div className="hidden lg:flex lg:items-center lg:space-x-4 xl:space-x-8">
               {navItems.map((item) => (
                 <a
                   key={item.id}
-                  href={item.id === 'results' || item.id === 'join-us' ? `/${item.id}` : `#${item.id}`}
+                  href={item.id === 'results' || item.id === 'join-us' || item.id === 'our-team' ? `/${item.id}` : `#${item.id}`}
                   onClick={(e) => {
                     e.preventDefault();
                     handleNavItemClick(item.id);
@@ -1120,7 +1140,7 @@ function App() {
         </div>
 
         <div
-          className={`transform transition-all duration-500 ease-in-out md:hidden border-t border-white/5 ${isMenuOpen
+          className={`transform transition-all duration-500 ease-in-out lg:hidden border-t border-white/5 ${isMenuOpen
             ? 'opacity-100 translate-y-0 max-h-96'
             : 'opacity-0 -translate-y-5 max-h-0 pointer-events-none'
             } overflow-hidden`}
@@ -1129,7 +1149,7 @@ function App() {
             {navItems.map((item) => (
               <a
                 key={item.id}
-                href={item.id === 'results' || item.id === 'join-us' ? `/${item.id}` : `#${item.id}`}
+                href={item.id === 'results' || item.id === 'join-us' || item.id === 'our-team' ? `/${item.id}` : `#${item.id}`}
                 onClick={(e) => {
                   e.preventDefault();
                   setIsMenuOpen(false);
@@ -1152,6 +1172,8 @@ function App() {
         <RecruitmentPage onResultsClick={openResultsPage} />
       ) : page === 'results' ? (
         <ResultsPage />
+      ) : page === 'our-team' ? (
+        <OurTeamPage />
       ) : page === 'blog' ? (
         <section className="min-h-screen w-full py-20 bg-dark">
           <div className="w-full min-w-0 max-w-7xl mx-auto px-2">
@@ -1432,7 +1454,7 @@ function App() {
         )}
       </AnimatePresence>
 
-      {page !== 'join-us' && page !== 'results' && (
+      {page !== 'join-us' && page !== 'results' && page !== 'our-team' && (
         <>
       {/* Achievements Section */}
       <section id="achievements" className="py-20 bg-dark-secondary">
